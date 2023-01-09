@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Models</title>
+	<link href="Style.css" rel="stylesheet">
+
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 1.37.1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Imports -->
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script> 
+	<script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+	<script src="https://unpkg.com/resize-observer-polyfill@1.5.0/dist/ResizeObserver.js"></script>
+   	<script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
+	
+	<script type="module"
+	   	src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+   	</script>
+ 	<script nomodule
+   		src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js">
+ 	</script>
+
+
+		<!-- Slide Show -->
+	<style>
+		Slide_photo{
+		height: 500px;
+		width: 450px;
+		}
+		.button{
+		margin-left: 45%;
+		}
+	</style>
+	<script>
+		function changeImage() {
+		var Slide_photo = document.getElementById("Slide_photo");
+		Slide_photo.src = images[x];
+		x++;        
+		if(x >= images.length) {
+			x = 0;
+		} 
+		setTimeout("changeImage()", 2000);
+		}
+		var images = [], x = 0;
+		//images[0] = "Images/Final_Capture_1.png";
+		//images[1] = "Images/Final_Capture_2.png";
+		images[0] = "Images/Hunter_Render.png";
+		images[1] = "Images/Vampire_Render.png";
+		images[2] = "Images/WereWolf_Render.png";
+		images[3] = "Images/Final_Model.jpeg";
+		images[4] = "Images/New Housing Render 3D w Top w Front.png";
+		setTimeout("changeImage()", 2000);
+	</script>
+
+
+	<!--Tab Script-->
+	<script>
+		function openCity(evt, cityName) {
+		  var i, tabcontent, tablinks;
+		  tabcontent = document.getElementsByClassName("tabcontent");
+		  for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		  }
+		  tablinks = document.getElementsByClassName("tablinks");
+		  for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		  }
+		  document.getElementById(cityName).style.display = "block";
+		  evt.currentTarget.className += " active";
+		}
+		</script>
+</head>
+
+
+<body style="background-color: white;">
+
+	<h1 align="center"
+	style="font-family:Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: bold; color: black; font-size: 75px; background-color: lightgray;"
+	>Ascenzo's Portfolio</h1>
+
+	<div class="tab" align="center">
+		<button class="tablinks" onclick="openCity(event, 'About')">About</button>
+		<button class="tablinks" onclick="openCity(event, 'Phoenix')">Phoenix</button>
+		<button class="tablinks" onclick="openCity(event, 'E#')">E# Programming Language</button>
+		<button class="tablinks" onclick="openCity(event, 'Films')">Film Projects</button>
+		<button class="tablinks" onclick="openCity(event, 'Models')">3D Models</button>
+		<button class="tablinks" onclick="openCity(event, 'Games')">Game Projects</button>
+	</div>
+
+
+	<div id="About" class="tabcontent">
+		<h1>About</h1>
+		<br>
+		<br>
+		<p align="center">
+			CONTACT DETAILS: <br>
+			<br>
+			EMAIL: ascenzo007@gmail.com <br>
+			INSTAGRAM: enzo_equizi<br>
+			YOUTUBE: Ascenzo Equizi <br>
+		</p>
+	</div>
+
+	<div id="Phoenix" class="tabcontent" align="center">
+		<h1>Phoenix (Voice Operated Virtual Assistant)</h1>
+		<br>
+		<p align="center" style="font-size: 15px;">
+		
+			I decided to test my all of my skills in developing a product to make peoples lives easier at home, work or at school.<br> 
+			My product is a voice operated virtual assistant some examples of this include Siri, Alexa, and Google Home. <br>
+			Working functions include Asking for the Date and Time, Asking for the current Weather (Adelaide), A working calculator, <br> 
+			The ability to play music, The ability to say jokes, riddles, and quotes, To search the internet for answers to random questions and much more. <br>
+			The basics of the product is if you speak or type a command the raspberry pi does do something. <br>
+			if the command you say, or type doesn’t exist then the program will ask <br>
+			“Sorry I don’t Understand, Would You Like Me to Run a Search for that”. 
+			The program does say and display the text version of whatever the program needs to say.<br>
+			Overall I enjoyed making this project and it was a fun challenge, I am proud to now say I have a voice operated virtual assistant. <br>
+			I decided to name this voice operated virtual assistant “Phoenix” after the mythological creature.<br>
+			<br>
+			<br>
+			Down below is the process I went through to make it such as: <br>
+			<br>
+			*	Concepts <br>
+			*	3D renders <br>
+			*	The 3D Printed Physical Model <br>
+			*	Parts list <br>
+			* A list Of Commands<br>
+			<br>
+			There is also a video of me testing the final prototype
+		</p>
+		<br>
+		<br>
+		<h2>Concept Sketchs</h2>
+		<div align="center">
+			<img src="Images/Sketchs.jpg" alt="Concept" style="width: 45%;">
+		</div>
+		<br>
+		<br>
+		<h2>3D Renders</h2>
+		<div align="center">
+			<img src="Images/New Housing Render 3D w Top w Front.png" alt="Render_1" style="width:25%;">
+			<img src="Images/New Housing Render Front w Top w Front.png" alt="Render_1" style="width:25%;">
+			<img src="Images/New Housing Render Side w Top Wo Front.png" alt="Render_1" style="width:25%; ">
+		</div>
+		<br>
+		<br>
+		<h2>Parts List</h2>
+		<h3>
+			* Raspberry Pi 4 Model B <br>
+			* Pillow Speakers <br>
+			* Stereo Lapel Microphone with Headphone Outlet <br>
+			* 3.5 Inch LCD HDMI Compatible USB Touch Screen Real HD 1920x1080 LCD Display<br>
+		</h3>
+		<br>
+		<br>
+		<h2>Final Phyisical Model</h2>
+		<div align="center">
+			<img src="Images/Final_Model_3D_View_.jpeg" alt="Final 1" style="width:25%;">
+			<img src="Images/Final_Model_Front_View_.jpeg" alt="Final 2" style="width:25%;">
+			<img src="Images/Final_Model_Side_View_.jpeg" alt="Final 3" style="width:25%;">
+		</div>
+		<br>
+		<br>
+		<h2>prototype Test</h2>
+		<video width="700" controls>
+			<source src="Videos/Phoenix Final Product.mp4" type="video/mp4">
+		</video>
+		<br>
+		<br>
+		<h2>List Of Commands</h2>
+		<br>
+		<p align=center>
+			- Hello <br>
+			- How are you <br>
+			- What Is Your Name <br>
+			- What Is My Name <br>
+			- What Is My Age <br>
+			- Who Made You <br>
+			- What Does Phoenix Stand For <br>
+			- What Is Phoenix Entertainment <br>
+			- What Is My Favouite Colour <br>
+			- What Is Your Favouite Colour <br>
+			- Favourite Sport <br>
+			- Favourite Actor<br>
+			- Favourite Band<br>
+			- Favourite Singer<br>
+			- Favourite Movie<br>
+			- Favourite Show<br>
+			- Favourite Song<br>
+			- Favourite Youtuber<br>
+			- Recommend Movie<br>
+			- Recommend Tv Show<br>
+			- Recommend Song<br>
+			- Recommend Band<br>
+			<br>
+			- Repeat: It repeats the last command that you said<br>
+			- Search: Does a search for what ever and gives a summery<br>
+			- Date And Time: Tells you the current date and time (adelaide)<br>
+			- Weather: Tells you the weather (adelaide)<br>
+			- Roll A Dice: Rolls a six fiqure die<br>
+			- Flip A Coin: Flips a two sided coin<br>
+			- Bedtime Story: Reads Goldylocks and the three bears<br>
+			- Translator: Translates from english to other languages only<br>
+			- Math: The AI Can Do Math Such As Addition, Subtraction, Mulitplication, Divide, Greatest Common Divisor, Least Common Multiple
+			- Joke: Jokes Depend On Your Age<br>
+			- Riddle: The ai will randomly chose a riddle from a website and you have 5 seconds to answer<br>
+			- Quote: The AI will read out a random quote from a random website and give you the authour as well<br>
+			- Would You Rather: The AI will give you a random Would You Rather Question (You dont have to answer)<br>
+			- Turn Off: The only why to turn off the AI is to say (exit, bye, goodbye, quit, 0, i dont need you)<br>
+			- New File: creates a new file<br>
+			- Voice Memo: Creates a text file of what you say or type<br>
+			- Play: You can play songs that are in the music folder<br>
+			- Pause: Pauses the song you are listening too<br>
+			- Unpause: Unpauses the song you are listening too<br>
+			- Stop: Stop the song you are listening too<br>
+			- Send Email: you cant send emails with Voice only with keyboard and mouse<br>
+			- Check Email: Checks everything in your inbox<br>
+			- Stop Watch: Press Enter To start and then Press Enter To Stop<br>
+			- Alarm: You can set an alarm that works but you cant do anything until alarm goes off<br>
+			- Add To Shopping Cart: Adds Items To Cart<br>
+			- Show Shopping Cart: Prints What Is In Your Shopping Cart<br>
+			- Delete Shopping Cart: Deletes Your Shopping Cart (But when you turn on the AI if there is no shopping cart it creates a new one with nothing in it)<br>
+			- Moon Phase: The AI will tell you the current phase of the moon<br>
+		</p>
+		<br>
+		<br>
+	</div>
+
+
+	<div id="E#" class="tabcontent">
+		<h1>E# Programming Language</h1>
+		<br>
+		<p align="center">
+			E# is a programming language i made in 2021, the programming langauge is simular to python and C#. <br>
+			The reason i made this programming langauge was to test my skills and see how far i can go. <br>
+			E# is a very simple langauge and you cant do much but you can write print statements, do simple math and more<br>
+			If you need help in how to use the programming langauge please reffer to the Example.E# that you can download<br>
+			Everything you Need should be in the E# Idle zip file which ontains the Idle to edit E# Code and also should<br>
+			have other documentation such as how to use and licence Enjoy Coding<br>
+			<br>
+			Applications Used:<br>
+			Python Idle<br>
+			<br>
+			Programming Langauges Used:<br>
+			Python 3.9.10<br>
+			<br>
+			Screen Shots:<br>
+		</p>
+		<br>
+		<img src="Images/Idle-E-exe.png" alt="EXE File" class="center">
+		<br>
+		<img src="Images/E-idle-Image.PNG" alt="Idle" class="center" style="width: 30%;">
+		<br>
+		<img src="Images/E-Idle-Example.PNG" alt="EXE File" class="center" style="width: 30%;">
+		<br>
+		<img src="Images/E-Idle-Run-File.png" alt="EXE File" class="center" style="width: 65%;">
+
+	</div>
+
+
+	<div id="Films" class="tabcontent" align="center">
+		<h1>Film Projects</h1>
+		<br>
+		<video width="700" controls>
+			<source src="Videos/B.O.B The Robot.mp4" type="video/mp4">
+		</video>
+		<h2>B.O.B The Robot</h2>
+		<h3>
+			I made B.O.B The robot in my first year at AIE (Academy Of Interactive Entertainment)<br>
+			In this course i got the oppertunite to learn how to model and animate with the application Maya from Autodesk <br>
+			I also got to learn how to use the application Davinci Resolve which is where i ediited this short film <br>
+			I hope you enjoy B.O.B The Robots little adventure in a toy store <br>	
+			<br>
+			Aplications Used:<br>
+			Autodesk - Maya<br>
+			Davinci Resolve<br>
+			Krita<br>
+			<br>
+			Summery Of Short Film:<br>
+			B.O.B is toy robot that has the ability to learn and grow, B.O.B Stands for Bond Of Brothers because the B.O.B robots Stick together.<br>
+			B.O.B notices that his power supply is on low power and he needs to find a new power source before he loses all power and forgets everything he has learned<br>
+			While B.O.B is fightning for his life he comes across many challenges but is forced to keep fightning.<br>
+		</h3>
+		<br>
+		<br>
+		<br>
+	</div>
+
+
+	<div id="Models" class="tabcontent">
+		<h1>3D Models</h1>
+		<br>
+		<model-viewer src="3D_Models/B.O.B The Robot.glb" alt="B.O.B The Robot" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center" >B.O.B The Robot</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/Vampire_Model.gltf" alt="Vampire" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Vampire Model</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/Werewolf_Human_Model.gltf" alt="Werewolf Human" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Werewolf Huamn Model</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/WereWolf_Beast_Model.gltf" alt="WereWolf Beast" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Werewolf Beast Model</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/Witch_Model.gltf" alt="Witch Model" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Witch Model</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/Shadow_Hunter_Model.gltf" alt="Shadow Hunter Model" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Shadow Hunter Model</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/Collectable_Box_Model.glb" alt="Collectable Box" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Collectable Box (For A Game)</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/Robo_Wolf_Model.gltf" alt="Robo Wolf (Metal)" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Robo Wolf Metal Verson</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/Robo_Wolf_Scene_Model.glb" alt="Robo Wolf (Scene)" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Robo Wolf Scene</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/Robo_Phoenix.glb" alt="Robo Phoenix" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Robo Phoenix</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/Rock_Monster.gltf" alt="Rock Monster Model" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Rock Monster Model (Untextured)</h2>
+		<br>
+		<br>
+
+		<model-viewer src="3D_Models/Real_Wolf_Model.glb" alt="Realistic Wolf" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+		<h2 style="text-align:center">Realistic Wolf</h2>
+		<br>
+		<br>
+	</div>
+
+	<div id="Games" class="tabcontent" align="center">
+		<h1>Game Projects</h1>
+		<br>
+		<video width="700" controls>
+			<source src="Videos/Game_Video.mp4" type="video/mp4">
+		</video>
+		<h2>Mazescape</h2>
+		<h3>
+			I made Mazescape in my second year at AIE (Academy Of Interactive Entertainment)<br>
+			In this course i got the oppertunite to learn how to make games using Unreal Engine by Epic Games <br>
+			I also got to learn how to use the application Zbrush to make better textures for my models<br>
+			I hope you enjoy this short video of the gameplay to my game <br>	
+			<br>
+			Aplications Used:<br>
+			Autodesk - Maya<br>
+			Krita<br>
+			Z-Brush<br>
+			Unreal Engine 4<br>
+			Adobe - Substance Painter <br>
+			Marmoset Toolbag 4<br>
+		</h3>
+	</div>
+
+
+	
+	<!-- Slide Show -->
+	<br>
+	<div align="center">
+		<img  id="Slide_photo"
+			  src="Images/Hunter_Render.png" 
+			  width="450px" height="450px">
+	 </div>
+
+</body> 
+</html>
