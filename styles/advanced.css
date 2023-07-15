@@ -1,0 +1,348 @@
+
+
+	/*
+	WHAT IS THIS FILE?
+	
+	This file contains all the more advanced layout style properties, such as 
+	widths, heights, spacing and positioning. If you want to change colours, 
+	backgrounds and fonts, see simple.css. 
+	*/
+
+
+
+	/*
+	|--------------------------------------------------------------------------
+	| Reset CSS
+	|--------------------------------------------------------------------------
+	
+    DO NOT CHANGE THESE STYLES
+    This "reset" CSS is used to reset some of the default styles to give me a clean slate. 
+	
+	*/
+
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+
+
+
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Wrapper
+	|--------------------------------------------------------------------------
+	
+	This controls the styles for the wrapper div that
+	contains all page elements, ie:
+	<div id="wrapper">
+	
+	*/
+	
+	#wrapper {
+		max-width: 1200px;
+		/* 10px top, auto right, 0 bottom, auto left. 
+  		By setting the left and right as auto, it means the wrapper will always be centred on the screen */
+		margin: 10px auto 0 auto; 
+	}
+
+
+
+
+
+	/*
+	|--------------------------------------------------------------------------
+	| Header
+	|--------------------------------------------------------------------------
+	*/
+
+	#header {	
+		
+			/*  
+			This controls the layout of <div id="header">
+			If you change the image inside the header, 
+			make sure you set the "height" property below
+			to match the height of the new image
+			
+			See simple.css for colour properties
+			*/
+		
+		position: relative;
+		margin: 0 0 0 0; 
+		overflow: hidden; 
+	}
+		
+
+	#nav {
+	
+			/*  
+			Layout properties for <ul id="nav"> 
+			See simple.css for colour properties
+			*/
+    display: block;
+		text-align: center;
+		padding: 0 0 0 20px;
+		list-style: none;
+		clear: both;
+		font-size: 1.3em;
+	}
+	
+	#nav li {
+		display: inline-block;
+		list-style: none;
+		padding: 0;
+	}
+	
+	
+	
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Main
+	|--------------------------------------------------------------------------
+	|
+	*/
+	
+	#main {
+		position: relative;
+		overflow: hidden;
+	}
+	
+	#content {
+		/* 
+		Styles for the div thay wraps the main content, eg:
+			<div id="content">
+		*/
+		float: left;
+		padding: 40px 50px 40px 50px;
+		width: 70%;
+	}
+	
+	#content.full-width {
+		/* 
+		Adding a class of "full-width" to the #content div
+		will use these styles, eg.
+		<div id="content" class="full-width"> 
+		*/
+    width: 100%;
+	}
+	
+	
+	
+	
+	
+	
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Sidebar
+	|--------------------------------------------------------------------------
+	*/
+	
+	#sidebar {
+	
+		/*
+		Styles for the sidebar wrapper, eg. 
+		<ul id="sidebar">
+		You can probably leave this as is
+		*/
+	
+  	margin-top: 8em;
+		padding: 0 50px 0 0;
+		float: left;
+		width: 30%;
+	}
+	
+	
+	
+	
+	
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Image Alignment Classes
+	|--------------------------------------------------------------------------
+
+	These classes can be used to align images, eg 
+	<img class="align-right" src="image.jpg" alt="Example Image">
+
+	*/
+	
+	.align-right {
+		float: right;
+		margin: 0 0 1.5em 1em;
+	}
+	
+	.align-left {
+		float: left;
+		margin: 0 1em 1em 0;
+	}
+	
+	.align-centre {
+		margin: 0 0 1.5em 0;
+		text-align: center;
+	}
+	
+	.caption {
+		font-style: italic;
+		text-align: center;
+	}
+	
+	
+	
+	
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Photo Gallery
+	|--------------------------------------------------------------------------
+	|
+	*/
+	
+	.photo-row {
+  	clear: both;
+  	overflow: hidden;
+  	margin: 15px -15px 15px -15px;
+	}
+	
+	.photo {
+  	width: 50%;
+  	float: left;
+  	padding: 0 15px;
+	}
+	
+	.photo img {
+  	width: 100%;
+  	height: auto;
+	}
+	
+	
+	
+	
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Widget Boxes
+	|--------------------------------------------------------------------------
+	
+	Layout styles for widget boxes, ie <li class="widget">
+	See simple.css for colour properties
+	
+	*/
+	
+	.widget {
+		margin: 0 0 40px 0;
+		list-style: none;
+		padding: 0 0 1em 0;
+	}
+	
+	.widget-heading {
+		padding: 20px 20px;
+		font-size: 1em;
+		margin: 0;
+	}
+	
+	.widget-content {
+		padding: 0px 20px 0 20px;
+	}
+	
+	
+	
+	
+	
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Footer
+	|--------------------------------------------------------------------------
+	
+	Styles for <p id="footer">
+	
+	*/
+	
+	#footer {
+		margin: 30px 15px 20px 15px;
+	}
+	
+	
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Video
+	|--------------------------------------------------------------------------
+	
+	Styles for the YouTube video embed code
+	
+	*/
+	
+	.video {
+		position: relative;
+		padding-bottom: 56.25%; /* 16:9 */
+		padding-top: 25px;
+		height: 0;
+	}
+	.video iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	
+
+
+
+
+	/*
+	|--------------------------------------------------------------------------
+	| Responsive Styles
+	|--------------------------------------------------------------------------
+	
+	This section allows you to set styles for specific screen sizes. 
+	This is an advanced technique not covered in the course, only use this
+	if you are already experienced with responsive CSS development
+	
+	*/
+
+  /* Large desktop */
+  @media (min-width: 1200px) { 
+  
+  	/* Place any styles specific to large destop screens here */
+  
+  }
+   
+  /* Portrait tablet to landscape and desktop */
+  @media (min-width: 768px) and (max-width: 979px) { 
+  
+  	/* Place any styles that are specific to tablets (portrait or landscape) and desktops here */
+  
+  }
+   
+  /* Landscape phone to portrait tablet */
+  @media (max-width: 767px) {
+  	
+  	/* Place styles that are specific to landscape phones here */
+  	
+  	#content {
+  		padding: 30px 20px 30px 20px;
+    	width: 100%;
+  	}
+  	
+		#sidebar {
+  		width: 100%;
+  		padding: 30px 20px 30px 20px;
+		}
+  	
+  }
+   
+  /* Landscape phones and down */
+  @media (max-width: 480px) { 
+  	
+  	/* Place any styles that are specific to mobile phones here */
+  	
+  }
