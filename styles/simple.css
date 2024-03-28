@@ -89,7 +89,7 @@
 			*/
 		
 		background: white;
-		color: gray;
+		color: white;
 		border-top: solid 5px black;
 	}
 	
@@ -107,7 +107,7 @@
 			See advanced.css for layout and size properties
 			*/
 	
-		background: gray;
+		background: linear-gradient(darkblue, purple);;
 		color: white;
 		font-size: 1em;
 	}
@@ -132,8 +132,8 @@
 		display: block;
 		padding: 1em 1.5em 1em 1.5em;
 		margin: 0;
-		background: gray;
-		color: #fff;
+		background: linear-gradient(darkblue, purple);;
+		color: white;
 		font-size: 1em;
 	}
 
@@ -160,7 +160,7 @@
 		   for example (note the additional class "selected"):
 			<a class="top-link selected" href="content.htm">Content Page</a>
 		*/
-    background: #f6f6f6;
+    background: white;
     color: #000000;
 		cursor: default;
 		font-weight: bold;
