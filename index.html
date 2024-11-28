@@ -1,126 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-  	
-  	<!-- Define the content type and scheme, you don't need to change this -->
-    <meta charset="utf-8">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>My Website</title>
+</head>
+
+
+<script>
+  function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+  </script>
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script> 
+  <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+  <script src="https://unpkg.com/resize-observer-polyfill@1.5.0/dist/ResizeObserver.js"></script>
+  <script src="https://unpkg.com/focus-visible@5.0.2/dist/focus-visible.js" defer></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"> </script>
+  <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+  
+  <style>
+    body {font-family: Arial;}
     
-    <!-- Defines the page's title and will appear in the toolbar of the web browser -->
-  	<title>Home Tab</title>
-  
-    <!-- Description: Set the value of content attribute to be a brief description of this page. -->
-  	<meta name="description" content="Describe the content of this page here.">
+    model-viewer{
+      width:500px;
+      height:500px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color:lightgray;
+      }
+        
+    .photo-row {
+        clear: both;
+        overflow: hidden;
+        margin: 15px -15px 15px -15px;
+      }
+      
+    .photo {
+        width: 50%;
+        float: left;
+        padding: 0 15px;
+      }
+    
+    /* Style the tab */
+    .tab {
+      overflow: hidden;
+      text-align: center;
+      border: 1px solid #ccc;
+      background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    }
+    
+    /* Style the buttons inside the tab */
+    .tab button {
+      background-color: inherit;
+      float: centre;
+      color: white;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 23px;
+    }
+    
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+      color: #ddd;
+    }
+    
+    /* Create an active/current tablink class */
+    .tab button.active {
+      color: red;
+    }
+    
+    /* Style the tab content */
+    .tabcontent {
+      display: none;
+      text-align: center;
+      padding: 6px 12px;
+      -webkit-animation: fadeEffect 1s;
+      animation: fadeEffect 1s;
+    }
+    
+    /* Fade in tabs */
+    @-webkit-keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    
+    @keyframes fadeEffect {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    
+    .video {
+      position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+      padding-top: 25px;
+      height: 0;
+      }
+    .video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      }
+      
+    </style>
+    
 
-  	<!-- Keywords: Set the value of content attribute to be a selection of keywords relevant to this page, separated by a comma. -->
-  	<meta name="keywords" content="keyword, keyword, keyword, keyword">
-  	
-  	<!-- Your CSS Styles -->
-  	<link rel="stylesheet" type="text/css" href="styles/advanced.css" media="screen">
-  	<link rel="stylesheet" type="text/css" href="styles/simple.css" media="screen">
-		
-		<!-- Slide Show -->
-		<style>
-			Slide_photo{
-			height: 500px;
-			width: 450px;
-			}
-			.button{
-			margin-left: 45%;
-			}
-		</style>
 
-		<script>
-			function changeImage() {
-			var Slide_photo = document.getElementById("Slide_photo");
-			Slide_photo.src = images[x];
-			x++;        
-			if(x >= images.length) {
-				x = 0;
-			} 
-			setTimeout("changeImage()", 2000);
-			}
-			var images = [], x = 0;
-			//images[0] = "Images/Final_Capture_1.png";
-			//images[1] = "Images/Final_Capture_2.png";
-			images[0] = "Images/Hunter_Render.png";
-			images[1] = "Images/Vampire_Render.png";
-			images[2] = "Images/WereWolf_Render.png";
-			images[3] = "Images/New Housing Render 3D w Top w Front.png";
-			images[4] = "Images/Edom_ScreenShot.png";
-			images[5] = "Images/Robo_Phoenix_Render.png";
-			images[6] = "Images/Mazescape_Render.png";
-			setTimeout("changeImage()", 2000);
-		</script>
-	</head>
 
-  <body>
-  
-  	<div id="wrapper">
-  	
-  		<div id="header">
-  			<img src="images/header.gif" alt="Assignment Template - Introduction to Digital Media" width="800" height="250">
-  		</div>
-  	
-  		<ul id="nav">
-  			<li><a class="top-link selected" href="index.html">Home</a></li>
-  			<li><a class="top-link" href="Pheonix.htm">Phoenix</a></li>
-			<li><a class="top-link" href="Programming_Lang.htm">E# Programing Language</a></li>
-  			<li><a class="top-link" href="Film_Projects.htm">Film Projects</a></li>
-  			<li><a class="top-link" href="Models.htm">3D Models</a></li>
-			<li><a class="top-link" href="Game_Projects.htm">Game Projects</a></li>
-			<li><a class="top-link" href="Music.htm">Music</a></li>
-  		</ul>
-  		
-  		<div id="main">
-  		
-  		
-  			<div id="content">
-				
-				<div style="padding-left: 15%; border-style: double;">
-					<img  id="Slide_photo"
-						  src="Images/Hunter_Render.png" 
-						  width="500px" height="500px"
-						  align="center">
-				</div>	
-			<br>
-  				<h2>Website Structure</h2>
-  				<p>The website is organised into 7 sections:</p>
-  				
-  				<ul>
-  					<li><strong>Home:</strong> The page you're viewing now.</li>
-  					<li><strong>Phoenix:</strong> My Voice Operated Virtual Assistant</li>
-  					<li><strong>E# Programming Language:</strong> My own Programming Language</li>
-  					<li><strong>Film Projects:</strong> This page is for all film projects i have worked on such as Short Films, and VFX Clips</li>
-					<li><strong>3D Models:</strong> This page will feature 3D Models and Animations I have made</li>
-					<li><strong>Game Projects:</strong> This page will feature games I have created in Unity and Unreal Engine</li>
-					<li><strong>Music:</strong> This page will feature music and beats i have created for games, or film projects</li>
-				</ul>  
-  			</div> <!-- end of #content -->
-  			
-  			<ul id="sidebar">
-				<img style="border-style: double;" width="310" src="images/Me_Image.jpg" alt="Ascenzo Equizi">
-				<br>
-  				<li class="widget">
-  				<h1 class="widget-heading">Contact Details</h1>
-  					<div class="widget-content">
-						<ul>
-							<li><strong>Email:</strong> ascenzo007@gmail.com</li>
-							<li><strong>YouTube:</strong> enzo_equizi</li>
-							<li><strong>Instagram:</strong> Ascenzo Equizi</li>
-						</ul>
-  					</div>  					
-  				</li>
-  			</ul> <!-- end of #sidebar -->
-  			
-  			
-  		</div> <!-- end of #main -->
-  	
-  	
-  	</div> <!-- end of #wrapper -->
-  	
-  	<p id="footer">Made by Ascenzo Equizi (2023). <a title="Send an email to ascenzo007@gmail.com" href="mailto:ascenzo007@gmail.com">My Email</a>.</p>
-  
-  </body>
+<body>
+  <!-- Header -->
+  <section id="header">
+    <div class="header container">
+      <div class="nav-bar">
+        <div class="brand">
+          <a href="#hero">
+            <h1><span>A</span>scenzo <span>E</span>quizi</h1>
+          </a>
+        </div>
+        <div class="nav-list">
+          <div class="hamburger">
+            <div class="bar"></div>
+          </div>
+          <ul>
+            <li><a href="#hero" data-after="Home">Home</a></li>
+            <li><a href="#SkillSet" data-after="SkillSet">SkillSet</a></li>
+            <li><a href="#services" data-after="Service">Services</a></li>
+            <li><a href="#projects" data-after="Projects">Projects</a></li>
+            <li><a href="#about" data-after="About">About</a></li>
+            <li><a href="#contact" data-after="Contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Header -->
+
+
+  <!-- Hero Section  -->
+  <section id="hero">
+    <div class="hero container">
+      <div>
+        <h1>Hello, <span></span></h1>
+        <h1>My Name is <span></span></h1>
+        <h1>Ascenzo Equizi <span></span></h1>
+        <a href="#projects" type="button" class="cta">Portfolio</a>
+      </div>
+    </div>
+  </section>
+  <!-- End Hero Section  -->
+
+  <!-- SkillSet Section -->
+  <section id="SkillSet">
+    <div class="SkillSet container">
+      <div class="SkillSet-top">
+        <h1 class="section-title">Ski<span>ll</span> Set</h1>
+        <p>I offer a wide range of creative services across video production, 3D design, and event work, tailored to meet the needs of diverse clients. My expertise includes color grading, motion graphics, and visual effects supervision, ensuring seamless integration of visuals and effects during post-production. I excel in 3D texturing, shading, and environment design, crafting immersive worlds and realistic assets, while also specializing in virtual production using Unreal Engine. On set, I provide professional camera operation, creative lighting design, and production planning to bring projects to life. Additionally, I offer wedding and event videography, as well as DJ and MC services, combining technical skill with an engaging presence. For those looking to refine their craft, I provide training in industry-standard software and consulting on efficient production workflows. Whether you need a polished showreel, expertly edited photos, or dynamic storytelling, my goal is to deliver high-quality, impactful results tailored to your vision.</p>
+      </div>
+      <div class="SkillSet-bottom">
+        <div class="SkillSet-item">
+          <div class="icon"><img src="img/Editor_Icon.png" /></div>
+          <h2>Video Production & Post-Production</h2>
+          <p>I specialize in delivering high-quality video production and post-production services that bring stories to life. From precise color grading to enhance mood and tone to dynamic motion graphics for titles and animations, I ensure that every frame serves the narrative. My expertise also extends to visual effects supervision, collaborating closely with directors and on-set teams to plan and execute seamless VFX integration.
+
+            In post-production, I focus on crafting engaging content through expert sound editing and design, blending visuals and audio into cohesive, impactful productions. Whether it’s refining dialogue, syncing sound effects, or creating immersive audio experiences, I bring a polished touch to every project.</p>
+        </div>
+        <div class="SkillSet-item">
+          <div class="icon"><img src="img/VFX_Icon.png" /></div>
+          <h2>3D and VFX Services</h2>
+          <p>With a strong foundation in 3D and visual effects, I offer services ranging from texturing and shading to designing entire 3D environments. My work involves creating highly detailed, realistic assets that bring virtual worlds to life. Using tools like Autodesk Maya and Adobe Substance Painter, I ensure precision and artistry in every 3D element.
+
+            I also specialize in dynamic effects and simulations, crafting realistic effects like fire, water, explosions, and more. In addition, I utilize Unreal Engine for virtual production, enabling real-time filmmaking and pre-visualization to push creative boundaries in storytelling.</p>
+        </div>
+        <div class="SkillSet-item">
+          <div class="icon"><img src="img/camera_Icon.png" /></div>
+          <h2>Cinematography & On-Set Services</h2>
+          <p>On set, I provide professional cinematography services, including camera operation, lighting design, and production planning. With a keen eye for composition and a passion for visual storytelling, I collaborate closely with directors and crews to achieve the perfect shot. My experience spans diverse projects, from short films to documentaries, ensuring high-quality results every time.
+
+            I also excel in designing creative lighting setups that enhance mood and support the narrative. Whether working with natural light or constructing elaborate setups, I bring technical expertise and artistic intuition to every production.</p>
+        </div>
+        <div class="SkillSet-item">
+          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/services.png" /></div>
+          <h2>Photography</h2>
+          <p>Through the lens, I transform ordinary moments into extraordinary visuals, capturing the essence of every subject with precision and creativity. My photography style blends technical expertise with an artistic eye, delivering images that are not just pictures but stories frozen in time.
+
+            From cinematic portraits to dynamic event photography, I focus on creating compositions that evoke emotion and leave a lasting impression. Whether it’s the subtle play of light and shadow, the vivid energy of a candid moment, or the fine details of a carefully crafted scene, my work celebrates the beauty in every frame.
+            
+            Each project is approached with a tailored vision, ensuring that every shot reflects the unique personality and narrative of my clients. With a commitment to quality and an eye for the extraordinary, I aim to turn your vision into stunning visuals that resonate long after the moment has passed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End SkillSet Section -->
+
+  <!-- Service Section -->
+  <section id="services">
+    <div class="services container">
+      <div class="service-top">
+        <h1 class="section-title">Ser<span>vi</span>ces</h1>
+        <p></p>
+      </div>
+      <div class="service-bottom">
+        <div class="service-item">
+          <h2>Short Film Production</h2>
+        </div>
+        <div class="service-item">
+          <h2>VFX and Editing</h2>
+        </div>
+        <div class="service-item">
+          <h2>Photography</h2>
+        </div>
+        <div class="service-item">
+          <h2>videography</h2>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Service Section -->
+
+  <!-- Projects Section -->
+  <section id="projects">
+      <div class="projects-header">
+        <h1 class="section-title">P<span>rojects</span></h1>
+        
+          <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'shortfilms')">Short Films</button>
+            <button class="tablinks" onclick="openCity(event, 'VFX')">VFX Projects</button>
+            <button class="tablinks" onclick="openCity(event, 'houses')">Real Estate</button>
+            <button class="tablinks" onclick="openCity(event, 'photos')">Photography</button>
+            <button class="tablinks" onclick="openCity(event, 'models')">3D Models</button>
+            <button class="tablinks" onclick="openCity(event, 'Scenes')">Scene Creations</button>
+            <button class="tablinks" onclick="openCity(event, 'reels')">Show Reels</button>
+            <button class="tablinks" onclick="openCity(event, 'other')">Other Projects</button>  
+          </div>
+
+
+
+          <div id="shortfilms" class="tabcontent">
+            <h1 class="section-title">Short<span>Film Projects</span></h1>
+            
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/GNPYlPUmx74?si=xwLSi6Yb_ZnjiZIC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/h-78ONbB4ww?si=rFi5R2r8x4ePzS-a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/xZawtCyPsU8?si=zgRBEC-e7aiOWT2P" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+          
+          
+          </div>
+
+
+
+
+
+          <div id="VFX" class="tabcontent">
+            <h1 class="section-title">VFX<span> Projects</span></h1>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/qoXs2sdZirY?si=i_RgvSIgMD4EPdKo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/QQho0rMmfwY?si=Gt3UZacvqkMEJwxw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/vDHnN5bUNlA?si=cqt2hwOZb0tW6dtm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/s6gqTTs92bM?si=VOXvYacfapa6X4el" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/unctBJcbFQM?si=xcStiWZI-cK60G9d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/b4dtPrs7qcQ?si=j03XqtcL78mLUuMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+          
+          
+          </div>
+
+
+
+
+          <div id="houses" class="tabcontent">
+            <h1 class="section-title">Real<span> Estate</span></h1>
+            <p>House 1</p>
+          </div>
+
+
+
+
+
+
+          <div id="photos" class="tabcontent">
+            <h1 class="section-title">P<span>hotography</span></h1>
+            <div class="photo-row">
+                <div class="photo">
+                    <p>Photo 1</p>
+                </div>			
+                <div class="photo">
+                    <p>Photo 2</p>
+                </div>
+            </div>
+          </div>
+
+
+
+
+
+
+          <div id="models" class="tabcontent">
+            <h1 class="section-title">3D<span> Models</span></h1>
+            <div class="photo-row">
+                <div class="photo">
+                    <model-viewer src="3D_Models/B.O.B The Robot.glb" alt="B.O.B The Robot" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+                      <p align="center">B.O.B The Robot</p>
+                  </div>
+                          
+                  <div class="photo">
+                    <model-viewer src="3D_Models/Vampire_Model.gltf" alt="Vampire" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>      				
+                  <p align="center">Vampire</p>
+                  </div>
+              </div>
+                        
+              <div class="photo-row">
+                <div class="photo">
+                  <model-viewer src="3D_Models/Werewolf_Human_Model.gltf" alt="Werewolf Human" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+                      <p align="center">Werewolf Human</p>
+                  </div>
+                  <div class="photo">
+                  <model-viewer src="3D_Models/WereWolf_Beast_Model.gltf" alt="WereWolf Beast" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+                  <p align="center">Werewolf Beast</p>
+                  </div>
+              </div>
+              <div class="photo-row">
+                <div class="photo">
+                  <model-viewer src="3D_Models/Witch_Model.gltf" alt="Witch Model" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+                  <p align="center">Witch</p>
+                  </div>
+                <div class="photo">
+                  <model-viewer src="3D_Models/Shadow_Hunter_Model.gltf" alt="Shadow Hunter Model" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+                  <p align="center">Shadow Hunter</p>
+                  </div>
+              </div>
+              <div class="photo-row">
+                <div class="photo">
+                  <model-viewer src="3D_Models/Collectable_Box_Model.glb" alt="Collectable Box" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+                  <p align="center">Collectable Box (For Game)</p>
+                  </div>
+                  <div class="photo">
+                  <model-viewer src="3D_Models/Robo_Wolf_Model.gltf" alt="Robo Wolf (Metal)" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+                  <p align="center">Robo Wolf</p>
+                  </div>
+              </div>
+
+              <div class="photo-row">
+                <div class="photo">
+                  <div class="sketchfab-embed-wrapper"> <iframe title="3D Art & Animation Foundations (3D Character)" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="500" height="500" src="https://sketchfab.com/models/1747445aed974d17b8fcc43d278bf63a/embed?ui_theme=dark"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/3d-art-animation-foundations-3d-character-1747445aed974d17b8fcc43d278bf63a?utm_medium=embed&utm_campaign=share-popup&utm_content=1747445aed974d17b8fcc43d278bf63a" target="_blank" style="font-weight: bold; color: #1CAAD9;"></a><a href="https://sketchfab.com/ascenzo007?utm_medium=embed&utm_campaign=share-popup&utm_content=1747445aed974d17b8fcc43d278bf63a" target="_blank" style="font-weight: bold; color: #1CAAD9;"></a><a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=1747445aed974d17b8fcc43d278bf63a" target="_blank" style="font-weight: bold; color: #1CAAD9;"></a></p></div>
+                  <p align="center">Robo Wolf Scene</p>
+                  </div>
+                  <div class="photo">
+                  <model-viewer src="3D_Models/Robo_Phoenix.glb" alt="Robo Phoenix" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+                  <p align="center">Robo Phoenix</p>
+                  </div>
+              </div>
+              <div class="photo-row">
+                <div class="photo">
+                  <model-viewer src="3D_Models/Rock_Monster.gltf" alt="Rock Monster Model" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+                  <p align="center">Rock Monster (Untextured)</p>
+                  </div>
+                <div class="photo">
+                  <model-viewer src="3D_Models/Real_Wolf_Model.glb" alt="Realistic Wolf" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
+                  <p align="center">Realistic Wolf</p>
+                  </div>
+              </div>
+            </div>
+
+
+
+
+
+
+          <div id="Scenes" class="tabcontent">
+            <h1 class="section-title">Scene<span> Creation</span></h1>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/HeSy5GvtPCM?si=tjbOctybnOzSPEYV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/OaFiFas2yV4?si=q6kgmueyeYhqt3yi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/bgLYvl8zb5o?si=o34vjqrVMyUcTCd_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+          </div>
+
+
+
+
+
+          <div id="reels" class="tabcontent">
+            <h1 class="section-title">Show<span>Reels</span></h1>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/EIDQ8gyM_uk?si=8NofgqQHijBiR9AY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/DyJurQjAWps?si=-fsMDIQrvNGJtgva" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/EQws0--ZLVc?si=b0qLFagi40zwvrK7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+          </div>
+
+
+
+
+
+
+          <div id="other" class="tabcontent">
+            <h1 class="section-title">Other<span> Projects</span></h1>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/HwMFdxTsukc?si=RmcUKspYFXFlfXvv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/Vt2X3qGR2eE?si=XQsJqAdPkC-eeSt6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/AtRcaBotlPE?si=Kkk_vjO5y_QwI6_9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            <iframe width="700" height="450" src="https://www.youtube.com/embed/7XuuTH2cwxc?si=eoRhOt98WYrvZCfv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+          </div>
+
+
+      </div>
+  </section>
+  <!-- End Projects Section -->
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="about container">
+      <div class="col-left">
+        <div class="about-img">
+          <img src="./img/Ascenzo_Headshot.jpg" alt="img">
+        </div>
+      </div>
+      <div class="col-right">
+        <h1 class="section-title">About <span>me</span></h1>
+        <h2>Ascenzo Equizi</h2>
+        <p>Dynamic and skilled VFX and film professional with a solid foundation in 3D modelling, composition, and technical on-set expertise. Currently pursuing a bachelor in film and television at Uni SA, bringing hands-on experience with industry-standard tools like Autodesk Maya, Nuke, Adobe After Effects, and Unreal Engine. Known for delivering high-quality visuals and collaborating across departments in cinematography, sound, and lighting for short films. Eager to leverage a blend of technical and creative skills in both post-production and live-action environments to contribute to innovative storytelling.</p>
+        <a href="#" class="cta">Download Resume</a>
+      </div>
+    </div>
+  </section>
+  <!-- End About Section -->
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="contact container">
+      <div>
+        <h1 class="section-title">Contact <span>info</span></h1>
+      </div>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/phone.png" /></div>
+          <div class="contact-info">
+            <h1>Phone</h1>
+            <h2>0406 079 816</h2>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/new-post.png" /></div>
+          <div class="contact-info">
+            <h1>Email</h1>
+            <h2>ascenzo007@gmail.com</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Contact Section -->
+
+  <!-- Footer -->
+  <section id="footer">
+    <div class="footer container">
+      <div class="brand">
+        <h1><span>A</span>scenzo <span>E</span>quizi</h1>
+      </div>
+      <h2>Portfolio</h2>
+      <div class="social-icon">
+        <div class="social-item">
+          <a href="#"><img src="https://img.icons8.com/bubbles/100/000000/facebook-new.png" /></a>
+        </div>
+        <div class="social-item">
+          <a href="#"><img src="https://img.icons8.com/bubbles/100/000000/instagram-new.png" /></a>
+        </div>
+      </div>
+      <p>Copyright © 2024 Ascenzo Equizi. All rights reserved</p>
+    </div>
+  </section>
+  <!-- End Footer -->
+  <script src="./app.js"></script>
+</body>
 
 </html>
