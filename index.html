@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<!--HEADER-->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <title>Ascenzo Equizi's Portfolio</title>
 </head>
+<!--END OF HEADER-->
 
 
+<!--JAVA SCRIPT-->
 <script>
   function openCity(evt, cityName) {
     var i, tabcontent, tablinks;
@@ -22,30 +26,10 @@
     }
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
-  }
-
-    var slideIndex = [1,1,1];
-    var slideId = ["mySlides1", "mySlides2", "mySlides3"]
-    showSlides(1, 0);
-    showSlides(1, 1);
-    showSlides(1, 2);
-
-    function plusSlides(n, no) {
-      showSlides(slideIndex[no] += n, no);
-    }
-
-    function showSlides(n, no) {
-      var i;
-      var x = document.getElementsByClassName(slideId[no]);
-      if (n > x.length) {slideIndex[no] = 1}    
-      if (n < 2) {slideIndex[no] = x.length}
-      for (i = 0; i < x.length; i++) {
-         x[i].style.display = "none";  
-      }
-      x[slideIndex[no]-1].style.display = "block";  
-    };  
-    
+  }    
   </script>
+<!--END OF JAVA SCRIPT-->
+
 
   <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script> 
   <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
@@ -54,48 +38,11 @@
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"> </script>
   <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
   
+
+<!--CSS-->
   <style>
     body {font-family: Arial;}
     
-    * {box-sizing: border-box}
-    .mySlides1, .mySlides2, .mySlides3 
-    {display: none}
-    img {vertical-align: middle;}
-
-    /* Slideshow container */
-    .slideshow-container {
-      max-width: 500px;
-      position: relative;
-      margin: auto;
-    }
-
-    /* Next & previous buttons */
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 10px;
-      width: auto;
-      padding: 50px;
-      color: rgb(187, 187, 187);
-      font-weight: bold;
-      font-size: 18px;
-      transition: 0.6s ease;
-      border-radius: 0 10px 10px 0;
-      user-select: none;
-    }
-
-    /* Position the "next button" to the right */
-    .next {
-      right: 0;
-      border-radius: 0px 0 0 0px;
-    }
-
-    /* On hover, add a grey background color */
-    .prev:hover, .next:hover {
-      background-color: #383838;
-      color: black;
-    }
-
     model-viewer{
       width:250px;
       height:250px;
@@ -182,8 +129,7 @@
       height: 100%;
       }
     </style>
-    
-
+<!--END OF CSS-->
 
 
 <body>
@@ -228,6 +174,7 @@
   </section>
   <!-- End Hero Section  -->
 
+
   <!-- SkillSet Section -->
   <section id="SkillSet">
     <div class="SkillSet container">
@@ -271,6 +218,7 @@
   </section>
   <!-- End SkillSet Section -->
 
+
   <!-- Service Section -->
   <section id="services">
     <div class="services container">
@@ -303,11 +251,13 @@
   </section>
   <!-- End Service Section -->
 
+
   <!-- Projects Section -->
   <section id="projects">
       <div class="projects-header">
         <h1 class="section-title">P<span>rojects</span></h1>
-        
+
+          <!-- TABS Creation -->
           <div class="tab">
             <button class="tablinks" onclick="openCity(event, 'shortfilms')">Short Films</button>
             <button class="tablinks" onclick="openCity(event, 'VFX')">VFX Projects</button>
@@ -319,7 +269,7 @@
           </div>
 
 
-
+          <!--SHORTFILMS TAB-->
           <div id="shortfilms" class="tabcontent">
             <h1 class="section-title">Short<span>Film Projects</span></h1>
             <div class="video-container">
@@ -337,9 +287,7 @@
           </div>
 
 
-
-
-
+          <!--VFX TAB-->
           <div id="VFX" class="tabcontent">
             <h1 class="section-title">VFX<span> Projects</span></h1>
             <div class="video-container">
@@ -369,78 +317,40 @@
           </div>
 
 
-
-
-
-
-
+          <!--PHOTOS TAB-->
           <div id="photos" class="tabcontent">
             <h1 class="section-title">P<span>hotography</span></h1>
             <div class="photo-row">
                 <div class="photo">
-                  <div class="slideshow-container">
-                    <div class="mySlides1">
-                      <img src="img/Special/Photo-1.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides1">
-                      <img src="img/Special/Photo-2.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides1">
-                      <img src="img/Special/Photo-3.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides1">
-                      <img src="img/Special/Photo-4.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides1">
-                      <img src="img/Special/Photo-5.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides1">
-                      <img src="img/Special/Photo-6.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides1">
-                      <img src="img/Special/Photo-7.jpg" id="border" style="width:100%">
-                    </div>
-                    <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
-                  </div>
-                    <p>Specialized Photography</p>
-                </div>			
+                      <img src="img/Special/Photo-1.jpg" id="border">
+                      <img src="img/Special/Photo-2.jpg" id="border">
+                      <img src="img/Special/Photo-3.jpg" id="border">
+                      <img src="img/Special/Photo-4.jpg" id="border">
+                      <img src="img/Special/Photo-5.jpg" id="border">
+                      <img src="img/Special/Photo-6.jpg" id="border">
+                      <img src="img/Headshots/Ascenzo_Headshot-1.jpg" id="border">
+                      <img src="img/Headshots/Wareesha_Headshot-1.jpg" id="border">
+
+                    </div>			
                 <div class="photo">
-                  <div class="slideshow-container">
-                    <div class="mySlides2">
-                      <img src="img/Landscapes/Landscape 1.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides2">
-                      <img src="img/Landscapes/Landscape 2.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides2">
-                      <img src="img/Landscapes/Landscape 3.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides2">
-                      <img src="img/Landscapes/Landscape 4.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides2">
-                      <img src="img/Landscapes/Landscape 5.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides2">
-                      <img src="img/Landscapes/Landscape 6.jpg" id="border" style="width:100%">
-                    </div>
-                    <div class="mySlides2">
-                      <img src="img/Landscapes/Landscape 7.jpg" id="border" style="width:100%">
-                    </div>
-                    <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
-                  </div>
-                    <p>Landscape Photography</p>
+                      <img src="img/Landscapes/Landscape 1.jpg" id="border">
+                      <img src="img/Landscapes/Landscape 2.jpg" id="border">
+                      <img src="img/Landscapes/Landscape 3.jpg" id="border">
+                      <img src="img/Landscapes/Landscape 4.jpg" id="border">
+                      <img src="img/Landscapes/Landscape 5.jpg" id="border">
+                      <img src="img/Landscapes/Landscape 6.jpg" id="border">
+                      <img src="img/Landscapes/Landscape 7.jpg" id="border">
+                      <img src="img/Landscapes/Landscape 8.jpg" id="border">
+                      <img src="img/Landscapes/Landscape 9.jpg" id="border">
+                      <img src="img/Headshots/Ascenzo_Headshot.jpg" id="border">
+                      <img src="img/Headshots/Wareesha_Headshot.jpg" id="border">
+
                 </div>
             </div>
           </div>
 
 
-
-
-
-
+          <!--MODELS TAB-->
           <div id="models" class="tabcontent">
             <h1 class="section-title">3D<span> Models</span></h1>
             <div class="photo-row">
@@ -509,10 +419,7 @@
             </div>
 
 
-
-
-
-
+          <!--SCENES TAB-->
           <div id="Scenes" class="tabcontent">
             <h1 class="section-title">Scene<span> Creation</span></h1>
             <div class="video-container">
@@ -529,9 +436,7 @@
           </div>
 
 
-
-
-
+          <!--REELS TAB-->
           <div id="reels" class="tabcontent">
             <h1 class="section-title">Show<span>Reels</span></h1>
             <div class="video-container">
@@ -548,10 +453,7 @@
           </div>
 
 
-
-
-
-
+          <!--OTHER TABS-->
           <div id="other" class="tabcontent">
             <h1 class="section-title">Other<span> Projects</span></h1>
             <div class="video-container">
@@ -575,10 +477,11 @@
 
           </div>
 
-
+          <!--END OF TABS-->
       </div>
   </section>
   <!-- End Projects Section -->
+
 
   <!-- About Section -->
   <section id="about">
@@ -592,11 +495,12 @@
         <h1 class="section-title">About <span>me</span></h1>
         <h2>Ascenzo Equizi</h2>
         <p>Dynamic and skilled VFX and film professional with a solid foundation in 3D modelling, composition, and technical on-set expertise. Currently pursuing a bachelor in film and television at Uni SA, bringing hands-on experience with industry-standard tools like Autodesk Maya, Nuke, Adobe After Effects, and Unreal Engine. Known for delivering high-quality visuals and collaborating across departments in cinematography, sound, and lighting for short films. Eager to leverage a blend of technical and creative skills in both post-production and live-action environments to contribute to innovative storytelling.</p>
-        <a href="#" class="cta">Download Resume</a>
+        <a href="Files/Ascenzo Equizi Resume.docx" class="cta">Download Resume</a>
       </div>
     </div>
   </section>
   <!-- End About Section -->
+
 
   <!-- Contact Section -->
   <section id="contact">
@@ -624,6 +528,7 @@
   </section>
   <!-- End Contact Section -->
 
+
   <!-- Footer -->
   <section id="footer">
     <div class="footer container">
@@ -633,10 +538,10 @@
       <h2>Portfolio</h2>
       <div class="social-icon">
         <div class="social-item">
-          <a href="#"><img src="https://img.icons8.com/bubbles/100/000000/facebook-new.png" /></a>
+          <a href="https://www.facebook.com/share/1E5HeSeFHq/?mibextid=wwXIfr"><img src="https://img.icons8.com/bubbles/100/000000/facebook-new.png" /></a>
         </div>
         <div class="social-item">
-          <a href="#"><img src="https://img.icons8.com/bubbles/100/000000/instagram-new.png" /></a>
+          <a href="https://www.instagram.com/ascenzo_equizi_official?igsh=MTh6eG9sNDdyd2kwdQ%3D%3D&utm_source=qr"><img src="https://img.icons8.com/bubbles/100/000000/instagram-new.png" /></a>
         </div>
       </div>
       <p>Copyright © 2024 Ascenzo Equizi. All rights reserved</p>
@@ -644,6 +549,7 @@
   </section>
   <!-- End Footer -->
   <script src="./app.js"></script>
-</body>
 
+
+</body>
 </html>
