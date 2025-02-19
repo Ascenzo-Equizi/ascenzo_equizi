@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>My Website</title>
+  <title>Ascenzo Equizi's Portfolio</title>
 </head>
 
 
@@ -23,7 +23,30 @@
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
   }
+
+    var slideIndex = [1,1,1];
+    var slideId = ["mySlides1", "mySlides2", "mySlides3"]
+    showSlides(1, 0);
+    showSlides(1, 1);
+    showSlides(1, 2);
+
+    function plusSlides(n, no) {
+      showSlides(slideIndex[no] += n, no);
+    }
+
+    function showSlides(n, no) {
+      var i;
+      var x = document.getElementsByClassName(slideId[no]);
+      if (n > x.length) {slideIndex[no] = 1}    
+      if (n < 2) {slideIndex[no] = x.length}
+      for (i = 0; i < x.length; i++) {
+         x[i].style.display = "none";  
+      }
+      x[slideIndex[no]-1].style.display = "block";  
+    };  
+    
   </script>
+
   <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script> 
   <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
   <script src="https://unpkg.com/resize-observer-polyfill@1.5.0/dist/ResizeObserver.js"></script>
@@ -34,9 +57,48 @@
   <style>
     body {font-family: Arial;}
     
+    * {box-sizing: border-box}
+    .mySlides1, .mySlides2, .mySlides3 
+    {display: none}
+    img {vertical-align: middle;}
+
+    /* Slideshow container */
+    .slideshow-container {
+      max-width: 500px;
+      position: relative;
+      margin: auto;
+    }
+
+    /* Next & previous buttons */
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      width: auto;
+      padding: 50px;
+      color: rgb(187, 187, 187);
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.6s ease;
+      border-radius: 0 10px 10px 0;
+      user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+      right: 0;
+      border-radius: 0px 0 0 0px;
+    }
+
+    /* On hover, add a grey background color */
+    .prev:hover, .next:hover {
+      background-color: #383838;
+      color: black;
+    }
+
     model-viewer{
-      width:500px;
-      height:500px;
+      width:250px;
+      height:250px;
       margin-left: auto;
       margin-right: auto;
       background-color:lightgray;
@@ -45,13 +107,13 @@
     .photo-row {
         clear: both;
         overflow: hidden;
-        margin: 15px -15px 15px -15px;
+        margin: 5px -5px 5px -5px;
       }
       
     .photo {
         width: 50%;
         float: left;
-        padding: 0 15px;
+        padding: 0 5px;
       }
     
     /* Style the tab */
@@ -105,20 +167,20 @@
       to {opacity: 1;}
     }
     
-    .video {
+
+    
+    .video-container {
       position: relative;
-        padding-bottom: 56.25%; /* 16:9 */
-      padding-top: 25px;
+      padding-bottom: 56.25%; /* 16:9 */
       height: 0;
       }
-    .video iframe {
+    .video-container iframe {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       }
-      
     </style>
     
 
@@ -214,22 +276,29 @@
     <div class="services container">
       <div class="service-top">
         <h1 class="section-title">Ser<span>vi</span>ces</h1>
-        <p></p>
       </div>
       <div class="service-bottom">
         <div class="service-item">
           <h2>Short Film Production</h2>
         </div>
         <div class="service-item">
-          <h2>VFX and Editing</h2>
+          <h2>VFX, CGI and compositing</h2>
+        </div>
+        <div class="service-item">
+          <h2>Editing</h2>
         </div>
         <div class="service-item">
           <h2>Photography</h2>
         </div>
         <div class="service-item">
+          <h2>Headshots</h2>
+        </div>
+        <div class="service-item">
           <h2>videography</h2>
         </div>
       </div>
+      <br>
+      <h1>Send me a message for a quote</h1>
     </div>
   </section>
   <!-- End Service Section -->
@@ -242,7 +311,6 @@
           <div class="tab">
             <button class="tablinks" onclick="openCity(event, 'shortfilms')">Short Films</button>
             <button class="tablinks" onclick="openCity(event, 'VFX')">VFX Projects</button>
-            <button class="tablinks" onclick="openCity(event, 'houses')">Real Estate</button>
             <button class="tablinks" onclick="openCity(event, 'photos')">Photography</button>
             <button class="tablinks" onclick="openCity(event, 'models')">3D Models</button>
             <button class="tablinks" onclick="openCity(event, 'Scenes')">Scene Creations</button>
@@ -254,12 +322,18 @@
 
           <div id="shortfilms" class="tabcontent">
             <h1 class="section-title">Short<span>Film Projects</span></h1>
-            
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/GNPYlPUmx74?si=xwLSi6Yb_ZnjiZIC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/h-78ONbB4ww?si=rFi5R2r8x4ePzS-a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/xZawtCyPsU8?si=zgRBEC-e7aiOWT2P" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-          
-          
+            <div class="video-container">
+              <iframe width="500" height="350" src="https://www.youtube.com/embed/GNPYlPUmx74?si=xwLSi6Yb_ZnjiZIC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+            <br>  
+            <div class="video-container">  
+              <iframe width="500" height="350" src="https://www.youtube.com/embed/h-78ONbB4ww?si=rFi5R2r8x4ePzS-a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+            <br>  
+            <div class="video-container">  
+              <iframe width="500" height="350" src="https://www.youtube.com/embed/xZawtCyPsU8?si=zgRBEC-e7aiOWT2P" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+            <br>
           </div>
 
 
@@ -268,23 +342,32 @@
 
           <div id="VFX" class="tabcontent">
             <h1 class="section-title">VFX<span> Projects</span></h1>
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/qoXs2sdZirY?si=i_RgvSIgMD4EPdKo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/QQho0rMmfwY?si=Gt3UZacvqkMEJwxw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/vDHnN5bUNlA?si=cqt2hwOZb0tW6dtm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/s6gqTTs92bM?si=VOXvYacfapa6X4el" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/unctBJcbFQM?si=xcStiWZI-cK60G9d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/b4dtPrs7qcQ?si=j03XqtcL78mLUuMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-          
+            </div>
           
           </div>
 
-
-
-
-          <div id="houses" class="tabcontent">
-            <h1 class="section-title">Real<span> Estate</span></h1>
-            <p>House 1</p>
-          </div>
 
 
 
@@ -295,10 +378,60 @@
             <h1 class="section-title">P<span>hotography</span></h1>
             <div class="photo-row">
                 <div class="photo">
-                    <p>Photo 1</p>
+                  <div class="slideshow-container">
+                    <div class="mySlides1">
+                      <img src="img/Special/Photo-1.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides1">
+                      <img src="img/Special/Photo-2.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides1">
+                      <img src="img/Special/Photo-3.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides1">
+                      <img src="img/Special/Photo-4.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides1">
+                      <img src="img/Special/Photo-5.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides1">
+                      <img src="img/Special/Photo-6.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides1">
+                      <img src="img/Special/Photo-7.jpg" id="border" style="width:100%">
+                    </div>
+                    <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+                  </div>
+                    <p>Specialized Photography</p>
                 </div>			
                 <div class="photo">
-                    <p>Photo 2</p>
+                  <div class="slideshow-container">
+                    <div class="mySlides2">
+                      <img src="img/Landscapes/Landscape 1.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides2">
+                      <img src="img/Landscapes/Landscape 2.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides2">
+                      <img src="img/Landscapes/Landscape 3.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides2">
+                      <img src="img/Landscapes/Landscape 4.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides2">
+                      <img src="img/Landscapes/Landscape 5.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides2">
+                      <img src="img/Landscapes/Landscape 6.jpg" id="border" style="width:100%">
+                    </div>
+                    <div class="mySlides2">
+                      <img src="img/Landscapes/Landscape 7.jpg" id="border" style="width:100%">
+                    </div>
+                    <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
+                  </div>
+                    <p>Landscape Photography</p>
                 </div>
             </div>
           </div>
@@ -382,9 +515,17 @@
 
           <div id="Scenes" class="tabcontent">
             <h1 class="section-title">Scene<span> Creation</span></h1>
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/HeSy5GvtPCM?si=tjbOctybnOzSPEYV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/OaFiFas2yV4?si=q6kgmueyeYhqt3yi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/bgLYvl8zb5o?si=o34vjqrVMyUcTCd_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
           </div>
 
 
@@ -393,9 +534,17 @@
 
           <div id="reels" class="tabcontent">
             <h1 class="section-title">Show<span>Reels</span></h1>
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/EIDQ8gyM_uk?si=8NofgqQHijBiR9AY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+            
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/DyJurQjAWps?si=-fsMDIQrvNGJtgva" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+            
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/EQws0--ZLVc?si=b0qLFagi40zwvrK7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
           </div>
 
 
@@ -405,10 +554,25 @@
 
           <div id="other" class="tabcontent">
             <h1 class="section-title">Other<span> Projects</span></h1>
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/HwMFdxTsukc?si=RmcUKspYFXFlfXvv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
+            
+            <div class="video-container">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/Vt2X3qGR2eE?si=XQsJqAdPkC-eeSt6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
+            
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/AtRcaBotlPE?si=Kkk_vjO5y_QwI6_9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
+            
+            <div class="video-container">
             <iframe width="700" height="450" src="https://www.youtube.com/embed/7XuuTH2cwxc?si=eoRhOt98WYrvZCfv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
+            </div>
+
           </div>
 
 

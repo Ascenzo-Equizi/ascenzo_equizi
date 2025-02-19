@@ -361,6 +361,7 @@ p {
 	position: relative;
 	z-index: 1;
 	overflow: hidden;
+	text-align: center;
 }
 #services .service-item::after {
 	content: '';
