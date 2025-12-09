@@ -14,20 +14,59 @@
 
 <!--JAVA SCRIPT-->
 <script>
-  function openCity(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }    
-  </script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  // Modal functionality
+  function openModal(url) {
+    const modal = document.getElementById("projectModal");
+    const iframe = document.getElementById("modalVideo");
+
+    iframe.src = url;
+    modal.style.display = "flex"; // FIXED (centers the modal)
+  }
+
+  window.openModal = openModal; // needed for inline onclick
+
+  document.querySelector(".close").onclick = function() {
+    const modal = document.getElementById("projectModal");
+    const iframe = document.getElementById("modalVideo");
+
+    iframe.src = "";             // stop video
+    modal.style.display = "none"; // FIXED (actually closes the modal)
+  };
+
+  // Filter functionality
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const projectCards = document.querySelectorAll(".project-card");
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const filter = btn.getAttribute("data-filter");
+
+      projectCards.forEach(card => {
+        if(filter === "all") {
+          card.style.display = "block";
+        } else if(filter === "none") {
+          card.style.display = "none";
+        } else {
+          card.style.display = (card.getAttribute("data-category") === filter)
+            ? "block"
+            : "none";
+        }
+      });
+
+      // active button styling
+      filterButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+
+  // Hide all projects by default
+  projectCards.forEach(card => card.style.display = "none");
+
+});
+</script>
+
 <!--END OF JAVA SCRIPT-->
 
 
@@ -115,19 +154,69 @@
     }
     
 
-    
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 */
-      height: 0;
-      }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      }
+    #projects { padding: 50px 20px; text-align: center; }
+  .projects-filters { margin-bottom: 30px; }
+  .projects-filters .filter-btn {
+    background: #485563;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+  .projects-filters .filter-btn.active, .projects-filters .filter-btn:hover { background: #ff4c4c; }
+
+  .projects-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .project-card {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .project-card:hover { transform: scale(1.03); }
+
+  .project-card img { width: 100%; border-radius: 8px; cursor: pointer; }
+  .project-card h3 { margin: 10px 0 5px; }
+  .project-card p { font-size: 14px; color: #555; }
+
+  .video-preview { position: relative; display: inline-block; cursor: pointer; }
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    color: rgba(255,255,255,0.8);
+    text-shadow: 0 0 10px rgba(0,0,0,0.7);
+    pointer-events: none;
+  }
+
+  /* Modal */
+  .modal { display: none; position: fixed; z-index: 999; padding-top: 100px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9);}
+  .modal-content { margin: auto; display: block; width: 80%; max-width: 900px; }
+  .close { position: absolute; top: 30px; right: 35px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; }
+
+  /* Make filmography cards wider */
+  .project-card[data-category="scenes"] {
+    width: 600px;          /* adjust to taste */
+    max-width: 100%;
+    text-align: justify;
+    padding: 20px;
+  }
+
+
+
     </style>
 <!--END OF CSS-->
 
@@ -148,10 +237,9 @@
           </div>
           <ul>
             <li><a href="#hero" data-after="Home">Home</a></li>
-            <li><a href="#SkillSet" data-after="SkillSet">SkillSet</a></li>
-            <li><a href="#services" data-after="Service">Services</a></li>
-            <li><a href="#projects" data-after="Projects">Projects</a></li>
             <li><a href="#about" data-after="About">About</a></li>
+            <li><a href="#SkillSet" data-after="SkillSet">Creative Capabilities</a></li>
+            <li><a href="#projects" data-after="Projects">Projects</a></li>
             <li><a href="#contact" data-after="Contact">Contact</a></li>
           </ul>
         </div>
@@ -167,7 +255,8 @@
       <div>
         <h1>Hello, <span></span></h1>
         <h1>My Name is <span></span></h1>
-        <h1>Ascenzo Equizi <span></span></h1>
+        <h1>Ascenzo Equizi <span></span></h1> <br>
+        <h1 style="font-size: xx-large;">VFX Artist | Filmmaker | DOP | Lighting Technician <span></span></h1>
         <a href="#projects" type="button" class="cta">Portfolio</a>
       </div>
     </div>
@@ -175,319 +264,7 @@
   <!-- End Hero Section  -->
 
 
-  <!-- SkillSet Section -->
-  <section id="SkillSet">
-    <div class="SkillSet container">
-      <div class="SkillSet-top">
-        <h1 class="section-title">Ski<span>ll</span> Set</h1>
-        <p>I offer a wide range of creative services across video production, 3D design, and event work, tailored to meet the needs of diverse clients. My expertise includes color grading, motion graphics, and visual effects supervision, ensuring seamless integration of visuals and effects during post-production. I excel in 3D texturing, shading, and environment design, crafting immersive worlds and realistic assets, while also specializing in virtual production using Unreal Engine. On set, I provide professional camera operation, creative lighting design, and production planning to bring projects to life. Additionally, I offer wedding and event videography, as well as DJ and MC services, combining technical skill with an engaging presence. For those looking to refine their craft, I provide training in industry-standard software and consulting on efficient production workflows. Whether you need a polished showreel, expertly edited photos, or dynamic storytelling, my goal is to deliver high-quality, impactful results tailored to your vision.</p>
-      </div>
-      <div class="SkillSet-bottom">
-        <div class="SkillSet-item">
-          <div class="icon"><img src="img/Editor_Icon.png" /></div>
-          <h2>Video Production & Post-Production</h2>
-          <p>I specialize in delivering high-quality video production and post-production services that bring stories to life. From precise color grading to enhance mood and tone to dynamic motion graphics for titles and animations, I ensure that every frame serves the narrative. My expertise also extends to visual effects supervision, collaborating closely with directors and on-set teams to plan and execute seamless VFX integration.
-
-            In post-production, I focus on crafting engaging content through expert sound editing and design, blending visuals and audio into cohesive, impactful productions. Whether it’s refining dialogue, syncing sound effects, or creating immersive audio experiences, I bring a polished touch to every project.</p>
-        </div>
-        <div class="SkillSet-item">
-          <div class="icon"><img src="img/VFX_Icon.png" /></div>
-          <h2>3D and VFX Services</h2>
-          <p>With a strong foundation in 3D and visual effects, I offer services ranging from texturing and shading to designing entire 3D environments. My work involves creating highly detailed, realistic assets that bring virtual worlds to life. Using tools like Autodesk Maya and Adobe Substance Painter, I ensure precision and artistry in every 3D element.
-
-            I also specialize in dynamic effects and simulations, crafting realistic effects like fire, water, explosions, and more. In addition, I utilize Unreal Engine for virtual production, enabling real-time filmmaking and pre-visualization to push creative boundaries in storytelling.</p>
-        </div>
-        <div class="SkillSet-item">
-          <div class="icon"><img src="img/camera_Icon.png" /></div>
-          <h2>Cinematography & On-Set Services</h2>
-          <p>On set, I provide professional cinematography services, including camera operation, lighting design, and production planning. With a keen eye for composition and a passion for visual storytelling, I collaborate closely with directors and crews to achieve the perfect shot. My experience spans diverse projects, from short films to documentaries, ensuring high-quality results every time.
-
-            I also excel in designing creative lighting setups that enhance mood and support the narrative. Whether working with natural light or constructing elaborate setups, I bring technical expertise and artistic intuition to every production.</p>
-        </div>
-        <div class="SkillSet-item">
-          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/services.png" /></div>
-          <h2>Photography</h2>
-          <p>Through the lens, I transform ordinary moments into extraordinary visuals, capturing the essence of every subject with precision and creativity. My photography style blends technical expertise with an artistic eye, delivering images that are not just pictures but stories frozen in time.
-
-            From cinematic portraits to dynamic event photography, I focus on creating compositions that evoke emotion and leave a lasting impression. Whether it’s the subtle play of light and shadow, the vivid energy of a candid moment, or the fine details of a carefully crafted scene, my work celebrates the beauty in every frame.
-            
-            Each project is approached with a tailored vision, ensuring that every shot reflects the unique personality and narrative of my clients. With a commitment to quality and an eye for the extraordinary, I aim to turn your vision into stunning visuals that resonate long after the moment has passed.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End SkillSet Section -->
-
-
-  <!-- Service Section -->
-  <section id="services">
-    <div class="services container">
-      <div class="service-top">
-        <h1 class="section-title">Ser<span>vi</span>ces</h1>
-      </div>
-      <div class="service-bottom">
-        <div class="service-item">
-          <h2>Short Film Production</h2>
-        </div>
-        <div class="service-item">
-          <h2>VFX, CGI and compositing</h2>
-        </div>
-        <div class="service-item">
-          <h2>Editing</h2>
-        </div>
-        <div class="service-item">
-          <h2>Photography</h2>
-        </div>
-        <div class="service-item">
-          <h2>Headshots</h2>
-        </div>
-        <div class="service-item">
-          <h2>videography</h2>
-        </div>
-      </div>
-      <br>
-      <h1>Send me a message for a quote</h1>
-    </div>
-  </section>
-  <!-- End Service Section -->
-
-
-  <!-- Projects Section -->
-  <section id="projects">
-      <div class="projects-header">
-        <h1 class="section-title">P<span>rojects</span></h1>
-
-          <!-- TABS Creation -->
-          <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'shortfilms')">Short Films</button>
-            <button class="tablinks" onclick="openCity(event, 'VFX')">VFX Projects</button>
-            <button class="tablinks" onclick="openCity(event, 'photos')">Photography</button>
-            <button class="tablinks" onclick="openCity(event, 'models')">3D Models</button>
-            <button class="tablinks" onclick="openCity(event, 'Scenes')">Scene Creations</button>
-            <button class="tablinks" onclick="openCity(event, 'reels')">Show Reels</button>
-            <button class="tablinks" onclick="openCity(event, 'other')">Other Projects</button>  
-          </div>
-
-
-          <!--SHORTFILMS TAB-->
-          <div id="shortfilms" class="tabcontent">
-            <h1 class="section-title">Short<span>Film Projects</span></h1>
-            <div class="video-container">
-              <iframe width="560" height="350" src="https://www.youtube.com/embed/cdxMYxy9oWw?si=ZLDAVVpU6Gfxz46Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <br>
-            <div class="video-container">
-              <iframe width="500" height="350" src="https://www.youtube.com/embed/GNPYlPUmx74?si=xwLSi6Yb_ZnjiZIC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>  
-            <div class="video-container">  
-              <iframe width="500" height="350" src="https://www.youtube.com/embed/h-78ONbB4ww?si=rFi5R2r8x4ePzS-a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>  
-            <div class="video-container">  
-              <iframe width="500" height="350" src="https://www.youtube.com/embed/xZawtCyPsU8?si=zgRBEC-e7aiOWT2P" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-          </div>
-
-
-          <!--VFX TAB-->
-          <div id="VFX" class="tabcontent">
-            <h1 class="section-title">VFX<span> Projects</span></h1>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/qoXs2sdZirY?si=i_RgvSIgMD4EPdKo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/QQho0rMmfwY?si=Gt3UZacvqkMEJwxw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/vDHnN5bUNlA?si=cqt2hwOZb0tW6dtm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/s6gqTTs92bM?si=VOXvYacfapa6X4el" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/unctBJcbFQM?si=xcStiWZI-cK60G9d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/b4dtPrs7qcQ?si=j03XqtcL78mLUuMI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-          
-          </div>
-
-
-          <!--PHOTOS TAB-->
-          <div id="photos" class="tabcontent">
-            <h1 class="section-title">P<span>hotography</span></h1>
-            <div class="photo-row">
-                <div class="photo">
-                      <img src="img/Special/Photo-1.jpg" id="border">
-                      <img src="img/Special/Photo-2.jpg" id="border">
-                      <img src="img/Special/Photo-3.jpg" id="border">
-                      <img src="img/Special/Photo-4.jpg" id="border">
-                      <img src="img/Special/Photo-5.jpg" id="border">
-                      <img src="img/Special/Photo-6.jpg" id="border">
-                      <img src="img/Headshots/Ascenzo_Headshot-1.jpg" id="border">
-                      <img src="img/Headshots/Wareesha_Headshot-1.jpg" id="border">
-
-                    </div>			
-                <div class="photo">
-                      <img src="img/Landscapes/Landscape 1.jpg" id="border">
-                      <img src="img/Landscapes/Landscape 2.jpg" id="border">
-                      <img src="img/Landscapes/Landscape 3.jpg" id="border">
-                      <img src="img/Landscapes/Landscape 4.jpg" id="border">
-                      <img src="img/Landscapes/Landscape 5.jpg" id="border">
-                      <img src="img/Landscapes/Landscape 6.jpg" id="border">
-                      <img src="img/Landscapes/Landscape 7.jpg" id="border">
-                      <img src="img/Landscapes/Landscape 8.jpg" id="border">
-                      <img src="img/Landscapes/Landscape 9.jpg" id="border">
-                      <img src="img/Headshots/Ascenzo_Headshot.jpg" id="border">
-                      <img src="img/Headshots/Wareesha_Headshot.jpg" id="border">
-
-                </div>
-            </div>
-          </div>
-
-
-          <!--MODELS TAB-->
-          <div id="models" class="tabcontent">
-            <h1 class="section-title">3D<span> Models</span></h1>
-            <div class="photo-row">
-                <div class="photo">
-                    <model-viewer src="3D_Models/B.O.B The Robot.glb" alt="B.O.B The Robot" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
-                      <p align="center">B.O.B The Robot</p>
-                  </div>
-                          
-                  <div class="photo">
-                    <model-viewer src="3D_Models/Vampire_Model.gltf" alt="Vampire" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>      				
-                  <p align="center">Vampire</p>
-                  </div>
-              </div>
-                        
-              <div class="photo-row">
-                <div class="photo">
-                  <model-viewer src="3D_Models/Werewolf_Human_Model.gltf" alt="Werewolf Human" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
-                      <p align="center">Werewolf Human</p>
-                  </div>
-                  <div class="photo">
-                  <model-viewer src="3D_Models/WereWolf_Beast_Model.gltf" alt="WereWolf Beast" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
-                  <p align="center">Werewolf Beast</p>
-                  </div>
-              </div>
-              <div class="photo-row">
-                <div class="photo">
-                  <model-viewer src="3D_Models/Witch_Model.gltf" alt="Witch Model" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
-                  <p align="center">Witch</p>
-                  </div>
-                <div class="photo">
-                  <model-viewer src="3D_Models/Shadow_Hunter_Model.gltf" alt="Shadow Hunter Model" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
-                  <p align="center">Shadow Hunter</p>
-                  </div>
-              </div>
-              <div class="photo-row">
-                <div class="photo">
-                  <model-viewer src="3D_Models/Collectable_Box_Model.glb" alt="Collectable Box" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
-                  <p align="center">Collectable Box (For Game)</p>
-                  </div>
-                  <div class="photo">
-                  <model-viewer src="3D_Models/Robo_Wolf_Model.gltf" alt="Robo Wolf (Metal)" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
-                  <p align="center">Robo Wolf</p>
-                  </div>
-              </div>
-
-              <div class="photo-row">
-                <div class="photo">
-                  <div class="sketchfab-embed-wrapper"> <iframe title="3D Art & Animation Foundations (3D Character)" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="500" height="500" src="https://sketchfab.com/models/1747445aed974d17b8fcc43d278bf63a/embed?ui_theme=dark"> </iframe> <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;"> <a href="https://sketchfab.com/3d-models/3d-art-animation-foundations-3d-character-1747445aed974d17b8fcc43d278bf63a?utm_medium=embed&utm_campaign=share-popup&utm_content=1747445aed974d17b8fcc43d278bf63a" target="_blank" style="font-weight: bold; color: #1CAAD9;"></a><a href="https://sketchfab.com/ascenzo007?utm_medium=embed&utm_campaign=share-popup&utm_content=1747445aed974d17b8fcc43d278bf63a" target="_blank" style="font-weight: bold; color: #1CAAD9;"></a><a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=1747445aed974d17b8fcc43d278bf63a" target="_blank" style="font-weight: bold; color: #1CAAD9;"></a></p></div>
-                  <p align="center">Robo Wolf Scene</p>
-                  </div>
-                  <div class="photo">
-                  <model-viewer src="3D_Models/Robo_Phoenix.glb" alt="Robo Phoenix" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
-                  <p align="center">Robo Phoenix</p>
-                  </div>
-              </div>
-              <div class="photo-row">
-                <div class="photo">
-                  <model-viewer src="3D_Models/Rock_Monster.gltf" alt="Rock Monster Model" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
-                  <p align="center">Rock Monster (Untextured)</p>
-                  </div>
-                <div class="photo">
-                  <model-viewer src="3D_Models/Real_Wolf_Model.glb" alt="Realistic Wolf" shadow-intensity="0" camera-controls auto-rotate ar ></model-viewer>
-                  <p align="center">Realistic Wolf</p>
-                  </div>
-              </div>
-            </div>
-
-
-          <!--SCENES TAB-->
-          <div id="Scenes" class="tabcontent">
-            <h1 class="section-title">Scene<span> Creation</span></h1>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/HeSy5GvtPCM?si=tjbOctybnOzSPEYV" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/OaFiFas2yV4?si=q6kgmueyeYhqt3yi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/bgLYvl8zb5o?si=o34vjqrVMyUcTCd_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-          </div>
-
-
-          <!--REELS TAB-->
-          <div id="reels" class="tabcontent">
-            <h1 class="section-title">Show<span>Reels</span></h1>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/EIDQ8gyM_uk?si=8NofgqQHijBiR9AY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/DyJurQjAWps?si=-fsMDIQrvNGJtgva" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/EQws0--ZLVc?si=b0qLFagi40zwvrK7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-          </div>
-
-
-          <!--OTHER TABS-->
-          <div id="other" class="tabcontent">
-            <h1 class="section-title">Other<span> Projects</span></h1>
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/HwMFdxTsukc?si=RmcUKspYFXFlfXvv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            
-            <div class="video-container">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/Vt2X3qGR2eE?si=XQsJqAdPkC-eeSt6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/AtRcaBotlPE?si=Kkk_vjO5y_QwI6_9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-            <br>
-            
-            <div class="video-container">
-            <iframe width="700" height="450" src="https://www.youtube.com/embed/7XuuTH2cwxc?si=eoRhOt98WYrvZCfv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> <br>
-            </div>
-
-          </div>
-
-          <!--END OF TABS-->
-      </div>
-  </section>
-  <!-- End Projects Section -->
-
-
-  <!-- About Section -->
+    <!-- About Section -->
   <section id="about">
     <div class="about container">
       <div class="col-left">
@@ -499,12 +276,450 @@
         <h1 class="section-title">About <span>me</span></h1>
         <h2>Ascenzo Equizi</h2>
         <p>Dynamic and skilled VFX and film professional with a solid foundation in 3D modelling, composition, and technical on-set expertise. Currently pursuing a bachelor in film and television at Uni SA, bringing hands-on experience with industry-standard tools like Autodesk Maya, Nuke, Adobe After Effects, and Unreal Engine. Known for delivering high-quality visuals and collaborating across departments in cinematography, sound, and lighting for short films. Eager to leverage a blend of technical and creative skills in both post-production and live-action environments to contribute to innovative storytelling.</p>
-        <a href="Files/Ascenzo Equizi Resume.docx" class="cta">Download Resume</a>
+       <!-- <a href="Files/Ascenzo Equizi Resume.docx" class="cta">Download Resume</a>-->
       </div>
     </div>
   </section>
   <!-- End About Section -->
 
+
+
+  <!-- Creative Capabilities Section -->
+  <section id="SkillSet">
+    <div class="SkillSet container">
+      <div class="SkillSet-top">
+        <h1 class="section-title">Creative <br><span>Capabilities</span></h1>
+        <p>A multidisciplinary filmmaker and VFX artist, I bridge the technical and creative worlds across production and post. My craft focuses on shaping light, motion, and digital realism to tell cinematic stories with precision and emotion.</p>
+      </div>
+      <div class="SkillSet-bottom">
+        <div class="SkillSet-item">
+          <div class="icon"><img src="https://images.vexels.com/media/users/3/307980/isolated/preview/32fd8a4e1a4c2d7109f96addfe29d3b3-lighting-technician-on-a-movie-set.png" /></div>
+          <h2>Visual Storytelling, Cinematography & Lighting Design</h2>
+          <p>
+            As both a Director of Photography and Lighting Technician, I craft visuals that balance storytelling, mood, and technical precision. I approach each scene as a visual puzzle using light, framing, and movement to serve the emotional intent of the story. Whether working with natural daylight or constructing stylized setups, I focus on depth, contrast, and tone to bring cinematic texture to every frame. <br>
+            On set, I collaborate closely with directors, gaffers, and camera crews to design efficient lighting plans, manage exposure, and achieve a consistent visual language across shots. <br>
+            Core Skills: Camera operation (Sony/Blackmagic), lighting design, exposure control, composition, lens choice, practical FX lighting, on-set collaboration, production planning.
+          </p>
+        </div>
+        <div class="SkillSet-item">
+          <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/3880/3880416.png" /></div>
+          <h2>FX Simulation & Compositing</h2>
+          <p>
+            I specialize in crafting dynamic visual effects that blend seamlessly into live-action plates. From fire, smoke, and debris simulations to water, destruction, and energy effects, I bring physical accuracy and dramatic flair to each shot. My compositing workflow focuses on integrating these effects believably — balancing color, perspective, and light interaction to achieve photo-real results.<br>
+            Working across Houdini, Nuke, and After Effects, I develop procedural systems and multi-pass composites to enhance realism and storytelling impact. <br>
+            Core Skills: FX simulation (fire, smoke, destruction, fluid), 3D/2D compositing, lighting integration, rendering passes, keying, cleanup, digital matte work, tracking and projection.
+          </p>
+        </div>
+        <div class="SkillSet-item">
+          <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/1454/1454773.png" /></div>
+          <h2>VFX & 3D Production</h2>
+          <p>
+              From modeling to matchmove, I manage the full 3D pipeline — ensuring continuity between practical and digital worlds. My work covers asset creation, texturing, animation, tracking, paint, and roto, with a focus on detail and accuracy. Whether developing realistic props or complex camera solves, I aim to make CG elements feel grounded in their environment.<br>
+              Using tools like Maya, Substance Painter, Blender, and 3D Equalizer, I combine technical precision with artistic sensibility, maintaining production efficiency without sacrificing visual integrity.<br>
+              Core Skills: Modeling, UVs, texturing, shading, animation, camera tracking, matchmove, paint, roto, projection cleanup, lookdev.
+          </p>
+        </div>
+        <div class="SkillSet-item">
+          <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/6979/6979672.png" /></div>
+          <h2>Post-Production</h2>
+          <p>
+            Post-production is where the story comes alive. I bring a structured, narrative-driven approach to editing, sound, and color, ensuring pacing, emotion, and visual rhythm align with the director’s intent. My color work focuses on tone continuity, contrast control, and cinematic stylization, while my audio integration emphasizes clarity and atmosphere.<br>
+            From offline edits to final delivery, I manage pipelines that maintain quality, organization, and creative flow across platforms and formats. <br>
+            Core Skills: Editing (Premiere Pro, Resolve), sound editing and design, color grading, motion graphics, conform and delivery, post-production workflow design.
+          </p>
+        </div>
+
+        <div class="SkillSet-item">
+          <div class="icon"><img src="https://cdn-icons-png.flaticon.com/512/17756/17756877.png" /></div>
+          <h2>Technical Direction & Workflow</h2>
+          <p>
+            Behind the artistry, I build efficient pipelines that keep creative teams aligned and productive. I’m experienced in data wrangling, project structure, and troubleshooting across multiple departments — from on-set capture to post-delivery. My focus is always on enabling creative freedom through solid technical foundations.<br>
+            Core Skills: Workflow optimization, media management, cross-department coordination, VFX pipeline setup, software integration, troubleshooting
+          </p>
+        </div>
+        <div class="SkillSet-item">
+          <div class="icon"><img src="https://uxwing.com/wp-content/themes/uxwing/download/business-professional-services/team-collaboration-icon.svg" /></div>
+          <h2>Creative Collaboration & Leadership</h2>
+          <p>
+            I thrive in collaborative environments where ideas evolve through teamwork. Whether leading a small crew or supporting a large production, I prioritize clear communication, adaptability, and problem-solving. My leadership philosophy is built on respect, preparation, and the drive to create something meaningful together.<br>
+            Core Skills: Crew management, on-set leadership, mentoring, communication, creative direction, adaptability.     
+          </p>
+        </div>
+        <div class="SkillSet-item">
+          <div class="icon"><img src="img/Skills.png" /></div>
+          <h2>Technical Toolkit</h2>
+          <p>
+            Maya • Houdini • Unreal Engine • Nuke • After Effects • DaVinci Resolve • Premiere Pro • Substance Painter • Blender • Photoshop • 3D Equalizer • Silhouette
+          </p>
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+  <!-- End SkillSet Section -->
+
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="projects-header">
+      <h1 class="section-title">Projects</h1>
+
+      <!-- Filter Buttons -->
+      <div class="projects-filters">
+        <button class="filter-btn active" data-filter="none">None</button>
+        <button class="filter-btn" data-filter="reels">Show-Reels</button>
+        <button class="filter-btn" data-filter="vfx">VFX</button>
+        <button class="filter-btn" data-filter="upcoming">Feature Film Projects</button>
+        <button class="filter-btn" data-filter="shortfilm">Short Films / Documentry's</button>
+        <button class="filter-btn" data-filter="models">3D Models</button>
+        <button class="filter-btn" data-filter="photography">Photography</button>
+        <button class="filter-btn" data-filter="scenes">Full Filmography List</button>
+        <button class="filter-btn" data-filter="all">All</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid">
+
+        <!-- =========================
+            SHORT FILMS — Released / Needs YouTube link
+            ========================= -->
+        <div class="project-card" data-category="shortfilm">
+          <div class="video-preview" onclick="openModal('https://www.youtube.com/embed/cdxMYxy9oWw')">
+            <img src="https://img.youtube.com/vi/cdxMYxy9oWw/hqdefault.jpg" alt="Duality">
+            <div class="play-button">&#9658;</div>
+          </div>
+          <h3>Duality</h3>
+          <p>DOP, Editing, VFX, Practical FX, Stunt Coordinator | 2025 | Released</p>
+        </div>
+
+        <div class="project-card" data-category="shortfilm">
+          <div class="video-preview" onclick="openModal('https://www.youtube.com/embed/GNPYlPUmx74')">
+            <img src="https://img.youtube.com/vi/GNPYlPUmx74/hqdefault.jpg" alt="Solace in Serenade">
+            <div class="play-button">&#9658;</div>
+          </div>
+          <h3>Solace in Serenade</h3>
+          <p>Lighting, Sound | 2023 | Released</p>
+        </div>
+
+
+        <div class="project-card" data-category="shortfilm">
+          <div class="video-preview" onclick="openModal('https://www.youtube.com/embed/AtRcaBotlPE')">
+            <img src="https://img.youtube.com/vi/AtRcaBotlPE/hqdefault.jpg" alt="The Story of Ethan Wright (Documentry)">
+            <div class="play-button">&#9658;</div>
+          </div>
+          <h3>The Story of Ethan Wright (Documentry)</h3>
+          <p>Lighting, Sound, Camera, Editing | 2023 | Released</p>
+        </div>
+
+        <div class="project-card" data-category="shortfilm">
+          <div class="video-preview" onclick="openModal('https://youtube.com/embed/xZawtCyPsU8')">
+            <img src="https://img.youtube.com/vi/xZawtCyPsU8/hqdefault.jpg" alt="Your Trash">
+            <div class="play-button">&#9658;</div>
+          </div>
+          <h3>Your Trash</h3>
+          <p>Camera, Lighting | 2024 | Released</p>
+        </div>
+
+        <div class="project-card" data-category="shortfilm">
+          <div class="video-preview" onclick="openModal('https://www.youtube.com/embed/yt-WHmr00eEk')">
+            <img src="https://img.youtube.com/vi/yt-WHmr00eE/hqdefault.jpg" alt="Sorry For Your Muse">
+            <div class="play-button">&#9658;</div>
+          </div>
+          <h3>Sorry For Your Muse</h3>
+          <p>DOP, Editor | 2023 | Released</p>
+        </div>
+
+        <div class="project-card" data-category="shortfilm">
+          <div class="video-preview" onclick="openModal('https://www.youtube.com/embed/7XuuTH2cwxc')">
+            <img src="https://img.youtube.com/vi/7XuuTH2cwxc/hqdefault.jpg" alt="Pulse of Two Worlds (Documentry)">
+            <div class="play-button">&#9658;</div>
+          </div>
+          <h3>Pulse of Two Worlds</h3>
+          <p>Sound, Lighting, and Editor | 2023 | Released</p>
+        </div>
+
+        <!-- =========================
+            FEATURED VFX Projects — Released / Needs YouTube link
+            ========================= -->
+        <div class="project-card" data-category="vfx">
+          <div class="video-preview" onclick="openModal('https://www.youtube.com/embed/w4K6ZQzXbZ8')">
+            <img src="https://img.youtube.com/vi/w4K6ZQzXbZ8/hqdefault.jpg" alt="VFX Project 1">
+            <div class="play-button">&#9658;</div>
+          </div>
+          <h3>Full CG SandStorm</h3>
+          <p>Houdini, Nuke | 2025</p>
+        </div>
+
+        <div class="project-card" data-category="vfx">
+          <div class="video-preview" onclick="openModal('https://www.youtube.com/embed/QQho0rMmfwY')">
+            <img src="https://img.youtube.com/vi/QQho0rMmfwY/hqdefault.jpg" alt="VFX Project 2">
+            <div class="play-button">&#9658;</div>
+          </div>
+          <h3>Full CG SpaceShip Scene</h3>
+          <p>Houdini, Maya, After Effects | 2024</p>
+        </div>
+
+        <!-- =========================
+            PHOTOGRAPHY — Direct image
+            ========================= -->
+        <div class="project-card" data-category="photography">
+          <img src="img/Special/Photo-1.jpg" alt="Special Shot 1">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Landscapes/Landscape 1.jpg" alt="Landscape 1">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Special/Photo-2.jpg" alt="Special Shot 2">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Landscapes/Landscape 2.jpg" alt="Landscape 2">
+        </div>
+        
+        <div class="project-card" data-category="photography">
+          <img src="img/Special/Photo-3.jpg" alt="Special Shot 3">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Landscapes/Landscape 3.jpg" alt="Landscape 3">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Special/Photo-4.jpg" alt="Special Shot 4">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Landscapes/Landscape 4.jpg" alt="Landscape 4">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Special/Photo-5.jpg" alt="Special Shot 5">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Landscapes/Landscape 5.jpg" alt="Landscape 5">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Special/Photo-6.jpg" alt="Special Shot 6">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Landscapes/Landscape 6.jpg" alt="Landscape 6">
+        </div>
+
+        <div class="project-card" data-category="photography">
+          <img src="img/Landscapes/Landscape 7.jpg" alt="Landscape 7">
+        </div>
+        
+        <div class="project-card" data-category="photography">
+          <img src="img/Landscapes/Landscape 8.jpg" alt="Landscape 8">
+        </div>
+        
+        <div class="project-card" data-category="photography">
+          <img src="img/Landscapes/Landscape 9.jpg" alt="Landscape 9">
+        </div>
+
+
+        <!-- =========================
+            3D Models — Direct model-viewer
+            ========================= -->
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/Robo_Wolf_Model.gltf" alt="Robot Wolf Model" camera-controls auto-rotate ar></model-viewer>
+          <h3>Robot Wolf Model</h3>
+        </div>
+
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/WereWolf_Beast_Model.gltf" alt="Werewolf Beast Model" camera-controls auto-rotate ar></model-viewer>
+          <h3>Werewolf Beast Model</h3>
+        </div>
+
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/Real_Wolf_Model.glb" alt="realistic Wolf Model" camera-controls auto-rotate ar></model-viewer>
+          <h3>realistic Wolf Model</h3>
+        </div>
+
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/Rock_Monster.gltf" alt="Rock Monster Model" camera-controls auto-rotate ar></model-viewer>
+          <h3>Rock Monster Model (Untextured)</h3>
+        </div>        
+
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/Vampire_Model.gltf" alt="Vampire Model" camera-controls auto-rotate ar></model-viewer>
+          <h3>Vampire Model</h3>
+        </div>
+
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/Werewolf_Human_Model.gltf" alt="Werewolf Human Model" camera-controls auto-rotate ar></model-viewer>
+          <h3>Werewolf Human Model</h3>
+        </div>
+
+
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/Witch_Model.gltf" alt="witch Model" camera-controls auto-rotate ar></model-viewer>
+          <h3>Witch Model</h3>
+        </div>
+
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/Shadow_Hunter_Model.gltf" alt="Shadow Hunter Model" camera-controls auto-rotate ar></model-viewer>
+          <h3>Shadow Hunter Model</h3>
+        </div>
+
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/B.O.B The Robot.glb" alt="B.O.B The Robot Model" camera-controls auto-rotate ar></model-viewer>
+          <h3>B.O.B The Robot</h3>
+        </div>
+
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/Collectable_Box_Model.glb" alt="Collectable Box Model" camera-controls auto-rotate ar></model-viewer>
+          <h3>Collectable Box Anim (For Video Game)</h3>
+        </div>
+
+        <div class="project-card" data-category="models">
+          <model-viewer src="3D_Models/Robo_Phoenix.glb" alt="Robot Phoenix" camera-controls auto-rotate ar></model-viewer>
+          <h3>Robot Phoenix </h3>
+        </div>
+
+        <!-- =========================
+            SCENE CREATION — Released / Needs YouTube link
+            ========================= -->
+        <div class="project-card" data-category="scenes">
+          <h2>Feature Films</h2>
+          <ul>
+            <li><strong>The Shadows of Trust (2025)</strong> — Gaffer, Head Electric | Dir. Thibul Nettle | Post-Production</li>
+            <li><strong>The Last Chapter (2025)</strong> — DOP, Sound, Lighting, Editing, VFX, Practical FX, Stunt Coordination | Grand Sun Shining Productions | Post-Production</li>
+            <li><strong>Rage of the Eclipse (TBD)</strong> — Camera, Sound, Lighting, Co-Director, Co-Producer | Co-Dir. Ascenzo Equizi & Christian Muserella | Pre-Production</li>
+          </ul>
+        </div>
+
+        <div class="project-card" data-category="scenes">
+          <h2>Short Films</h2>
+          <ul>
+            <li><strong>How to Unlove Someone (2025)</strong> — Lighting | Dir. Alex Deborto & Jake Walder | Yet To Be Released</li>
+            <li><strong>Knock Knock Knock (2025)</strong> — Lighting, Editing | Dir. Mikayla Weardon, White Rabbit Studios | Post-Production</li>
+            <li><strong>Cold Like Snow (2025)</strong> — Lighting, VFX | Dir. Isabelle Le Souef | In Production</li>
+            <li><strong>The Shift (2025)</strong> — Director, Producer, Editing, VFX | In Production</li>
+            <li><strong>Conan the Barbarian (2025)</strong> — Gaffer, VFX | Dir. Aaron Giagu | Post-Production</li>
+            <li><strong>Gazelle (2025)</strong> — Boom Operator, Sound | Dir. Hamish Phillips | Post-Production</li>
+            <li><strong>Duality (2025)</strong> — DOP, Editing, VFX, Practical FX, Stunt Coordinator | Released (YouTube)</li>
+            <li><strong>The Settlers (2026)</strong> — Gaffer | Dir. Jeremy Deverson | In Production</li>
+            <li><strong>Movie Title (2025)</strong> — Visual Effects Supervisor | Dir. Curits Comblas | Post-Production</li>
+            <li><strong>Your Trash (2024)</strong> — Camera, Lighting | Dir. Kingsley Fletcher & Cameran Dixen | Released (YouTube)</li>
+            <li><strong>Fragments (2024)</strong> — DOP, Sound, Lighting, Editing, VFX | Grand Sun Shining Productions | To Be Released</li>
+            <li><strong>The Reservation (2024)</strong> — DOP, Sound, Lighting, Editing, VFX | Grand Sun Shining Productions | Post-Production</li>
+            <li><strong>One Fateful Dinner (2024)</strong> — DOP, Sound, Lighting, Editing, VFX | Grand Sun Shining Productions | Post-Production</li>
+            <li><strong>Through the Process of Writing (2024)</strong> — DOP, Sound, Lighting, Editing, VFX | Grand Sun Shining Productions | To Be Released</li>
+            <li><strong>Contractors (2024)</strong> — Lighting, Editor, Visual Effects | Dir. Jake Walder & Marcus Catt | Post-Production</li>
+            <li><strong>Sorry for Your Muse (2023)</strong> — DOP, Editor | Grand Sun Shining Productions | Released (YouTube)</li>
+            <li><strong>Solace in Serenade (2023)</strong> — Lighting, Sound | Released (YouTube)</li>
+            <li><strong>One Job (2025)</strong> — Marketing | Dir. Dinesh Arnold | Released (YouTube)</li>
+            <li><strong>You Were Here (2026)</strong> — Lighting, Assist Sound | Dir. Jeremy Deverson | In Production</li>
+            <li><strong>A Guide To Making Friends (2025)</strong> — Lighting | Dir. Mickalya Warden | In Production</li>
+          </ul>
+        </div>
+
+
+        <div class="project-card" data-category="scenes">
+          <h2>Commercials & Music Videos</h2>
+          <ul>
+            <li><strong>A Little Life – Music Video (2025)</strong> — Lighting, Camera B, Editing | Dir. Marcus Catt | To Be Released</li>
+            <li><strong>Phoenix Fire Bourbon Whisky Commercial (2023)</strong> — DOP, Lighting, Editing, VFX | Released (YouTube)</li>
+          </ul>
+        </div>
+
+        <div class="project-card" data-category="scenes">
+          <h2>Documentaries</h2>
+          <ul>
+            <li><strong>The Pulse of Two Worlds (2024)</strong> — Lighting, Sound | Dir. Kingsley Fletcher & Cameran Dixen | Released (YouTube)</li>
+            <li><strong>The Story of Ethan Wright (2024)</strong> — Camera, Lighting, Sound, Editing, Director | Grand Sun Shining Productions | Released (YouTube)</li>
+            <li><strong>A Dine and A Dash – Food and Wine (2025)</strong> — Camera | Dir. David Moore | Released (YouTube)</li>
+            <li><strong>You Cant Make Me (2025)</strong> — Lighting | Dir. Pete Titchener | Released (YouTube)</li>
+          </ul>
+        </div>
+
+
+
+        <!-- =========================
+            SHOW REELS — Released / Needs YouTube link
+            ========================= -->
+        <div class="project-card" data-category="reels">
+          <div class="video-preview" onclick="openModal('https://www.youtube.com/embed/Mfmc0_C5oYY')">
+            <img src="https://img.youtube.com/vi/Mfmc0_C5oYY/hqdefault.jpg" alt="Show Reel 1">
+            <div class="play-button">&#9658;</div>
+          </div>
+          <h3>Generalist ShowReel</h3>
+          <p>FX, Lighting, Compositing | 2025 | Released</p>
+        </div>
+
+        <!-- =========================
+            UPCOMING / POST-PRODUCTION — placeholder
+            ========================= -->
+        <div class="project-card" data-category="upcoming">
+          <div class="video-preview" onclick="openModal()">
+            <img src="" alt="Upcoming Project">
+          </div>
+          <h3>The Last Chapter</h3>
+          <p>DOP, Sound, Lighting, Editing, VFX | Post-Production</p>
+        </div>
+
+        <div class="project-card" data-category="upcoming">
+          <div class="video-preview" onclick="openModal()">
+            <img src="https://m.media-amazon.com/images/M/MV5BOWI2Zjc3N2MtYmZhYy00OTAxLTk1NzMtNzljMDg2M2I3NjE3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Upcoming Project">
+          </div>
+          <h3>Shadows of Trust</h3>
+          <p>Lighting | Post-Production</p>
+        </div>
+
+
+        <div class="project-card" data-category="upcoming">
+          <div class="video-preview" onclick="openModal('')">
+            <img src="" alt="Upcoming Project">
+          </div>
+          <h3>Rage of the Eclipse</h3>
+          <p>Camera, Sound, Co-Director | Pre-Production</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<!-- Modal -->
+<div id="projectModal" style="
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+    flex-direction: column;
+">
+  <span class="close" style="
+    position:absolute;
+    top:20px;
+    right:30px;
+    color:white;
+    font-size:40px;
+    cursor:pointer;
+    z-index:1001;
+  ">&times;</span>
+
+  <iframe id="modalVideo"
+    width="80%"
+    height="80%"
+    src=""
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+  </iframe>
+</div>
+  <!-- End Projects Section -->
 
   <!-- Contact Section -->
   <section id="contact">
@@ -512,23 +727,24 @@
       <div>
         <h1 class="section-title">Contact <span>info</span></h1>
       </div>
-      <div class="contact-items">
-        <div class="contact-item">
-          <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/phone.png" /></div>
-          <div class="contact-info">
-            <h1>Phone</h1>
-            <h2>0406 079 816</h2>
+          <div class="contact-item" style="width: 500px;">
+              <div class="social-icon">
+              <div class="social-item">
+                <a href="https://www.facebook.com/share/1E5HeSeFHq/?mibextid=wwXIfr"><img src="https://img.icons8.com/bubbles/100/000000/facebook-new.png" style="width: 100px;"/></a>
+                <a href="https://www.imdb.com/name/nm16355553/"><img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/171_Imdb_logo_logos-512.png" style="width: 100px;"/></a>
+                <a href="https://www.linkedin.com/in/ascenzo-equizi/"><img src="https://img.icons8.com/bubbles/100/000000/linkedin.png" style="width: 100px;"/></a>
+                <a href="https://www.instagram.com/ascenzo_equizi_official?igsh=MTh6eG9sNDdyd2kwdQ%3D%3D&utm_source=qr"><img src="https://img.icons8.com/bubbles/100/000000/instagram-new.png" style="width: 100px;"/></a>
+              </div>
           </div>
-        </div>
-        <div class="contact-item">
+    </div>
+    <br>
+    <div class="contact-item">
           <div class="icon"><img src="https://img.icons8.com/bubbles/100/000000/new-post.png" /></div>
           <div class="contact-info">
             <h1>Email</h1>
-            <h2>ascenzo007@gmail.com</h2>
+            <h2>ascenzo.equizi.official@gmail.com</h2>
           </div>
         </div>
-      </div>
-    </div>
   </section>
   <!-- End Contact Section -->
 
@@ -540,15 +756,8 @@
         <h1><span>A</span>scenzo <span>E</span>quizi</h1>
       </div>
       <h2>Portfolio</h2>
-      <div class="social-icon">
-        <div class="social-item">
-          <a href="https://www.facebook.com/share/1E5HeSeFHq/?mibextid=wwXIfr"><img src="https://img.icons8.com/bubbles/100/000000/facebook-new.png" /></a>
-        </div>
-        <div class="social-item">
-          <a href="https://www.instagram.com/ascenzo_equizi_official?igsh=MTh6eG9sNDdyd2kwdQ%3D%3D&utm_source=qr"><img src="https://img.icons8.com/bubbles/100/000000/instagram-new.png" /></a>
-        </div>
+      <p align="center">Copyright © 2024 Ascenzo Equizi. All rights reserved</p>
       </div>
-      <p>Copyright © 2024 Ascenzo Equizi. All rights reserved</p>
     </div>
   </section>
   <!-- End Footer -->
